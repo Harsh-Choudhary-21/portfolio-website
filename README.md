@@ -46,14 +46,6 @@ src/
 
 ---
 
-## 📷 Preview
-
-> _(Add a screenshot or screen recording of the live app here if available)_  
-> Example:  
-> ![Portfolio Preview](./preview.png)
-
----
-
 ## 🚀 Getting Started
 
 ```bash
