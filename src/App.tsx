@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail, Phone, MapPin, Download } from 'lucide-react'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-black to-red-900 p-8">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header/Introduction */}
         <header className="text-center space-y-4 transform hover:scale-105 transition-transform duration-300">
@@ -13,9 +13,11 @@ function App() {
             <ContactInfo icon={<Mail size={18} />} text="harshchoudhary227@gmail.com" />
             <ContactInfo icon={<MapPin size={18} />} text="Noida, Uttar Pradesh" />
           </div>
-          <div className="flex justify-center space-x-4 items-center">
+          <div className="flex justify-center space-x-4">
             <SocialLink href="https://github.com/Harsh-Choudhary-21" icon={<Github size={24} />} />
             <SocialLink href="https://www.linkedin.com/in/harsh-choudhary-b87837311/" icon={<Linkedin size={24} />} />
+          </div>
+          <div className="flex justify-center mt-4">
             <DownloadCVButton />
           </div>
         </header>
@@ -141,9 +143,10 @@ function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
 function DownloadCVButton() {
   return (
     <a
-      href="/Harsh_Choudhary_Resume.docx"
-      download="Harsh_Choudhary_Resume.docx"
-      className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-full font-medium transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+      href="https://docs.google.com/document/d/1p5kJmYtuBKdmO691Xsi8aZBPWptXph7n/edit?usp=sharing&ouid=103310832046668757715&rtpof=true&sd=true"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 via-black to-red-600 hover:from-blue-700 hover:via-gray-900 hover:to-red-700 text-white px-6 py-3 rounded-full font-medium transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
     >
       <Download size={20} />
       <span>Download CV</span>
