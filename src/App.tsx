@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Github, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
+import { Github, Linkedin, Mail, Phone, MapPin, Download } from 'lucide-react'
 
 function App() {
   return (
@@ -13,9 +13,10 @@ function App() {
             <ContactInfo icon={<Mail size={18} />} text="harshchoudhary227@gmail.com" />
             <ContactInfo icon={<MapPin size={18} />} text="Noida, Uttar Pradesh" />
           </div>
-          <div className="flex justify-center space-x-4">
+          <div className="flex justify-center space-x-4 items-center">
             <SocialLink href="https://github.com/Harsh-Choudhary-21" icon={<Github size={24} />} />
             <SocialLink href="https://www.linkedin.com/in/harsh-choudhary-b87837311/" icon={<Linkedin size={24} />} />
+            <DownloadCVButton />
           </div>
         </header>
 
@@ -137,6 +138,19 @@ function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
       className="text-gray-400 hover:text-blue-400 transform hover:scale-125 transition-all duration-300"
     >
       {icon}
+    </a>
+  )
+}
+
+function DownloadCVButton() {
+  return (
+    <a
+      href="/Harsh_Choudhary_Resume.docx"
+      download="Harsh_Choudhary_Resume.docx"
+      className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-full font-medium transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+    >
+      <Download size={20} />
+      <span>Download CV</span>
     </a>
   )
 }
