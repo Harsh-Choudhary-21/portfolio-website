@@ -69,10 +69,6 @@ function App() {
               tech="Python/OpenCV"
             />
             <ProjectCard
-              title="Text to Face Generation"
-              tech="Python, MediaPipe"
-            />
-            <ProjectCard
               title="Full Stack Developer Project"
               tech="React, Node.js"
             />
