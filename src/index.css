@@ -4,8 +4,23 @@
 
 @layer base {
   body {
-    @apply text-gray-100 antialiased;
+    @apply text-gray-100 antialiased overflow-hidden;
   }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure no scrolling on body */
+body, html {
+  overflow: hidden;
+  height: 100%;
 }
 
 /* Custom animation for the background pattern */
@@ -18,5 +33,35 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .text-6xl {
+    @apply text-4xl;
+  }
+  
+  .text-8xl {
+    @apply text-5xl;
+  }
+  
+  .text-5xl {
+    @apply text-3xl;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .hover\:scale-105:hover {
+    transform: scale(1.02);
+  }
+  
+  .hover\:scale-110:hover {
+    transform: scale(1.05);
+  }
+  
+  .hover\:scale-125:hover {
+    transform: scale(1.1);
   }
 }
