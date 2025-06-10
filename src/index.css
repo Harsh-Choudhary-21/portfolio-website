@@ -4,23 +4,51 @@
 
 @layer base {
   body {
-    @apply text-gray-100 antialiased overflow-hidden;
+    @apply text-gray-100 antialiased;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
   }
   
   html {
     scroll-behavior: smooth;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  #root {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
   }
 }
 
-/* Custom scrollbar for webkit browsers */
+/* Hide all scrollbars */
 ::-webkit-scrollbar {
   display: none;
+  width: 0;
+  height: 0;
 }
 
-/* Ensure no scrolling on body */
-body, html {
-  overflow: hidden;
-  height: 100%;
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ensure no scrolling anywhere */
+body, html, #root {
+  overflow: hidden !important;
+  height: 100vh !important;
+  width: 100vw !important;
 }
 
 /* Custom animation for the background pattern */
@@ -49,6 +77,20 @@ body, html {
   .text-5xl {
     @apply text-3xl;
   }
+  
+  /* Adjust navigation for mobile */
+  .fixed.right-8 {
+    right: 1rem;
+  }
+  
+  .fixed.bottom-8 {
+    bottom: 1rem;
+  }
+  
+  .fixed.top-8.left-8 {
+    top: 1rem;
+    left: 1rem;
+  }
 }
 
 /* Touch device optimizations */
@@ -64,4 +106,12 @@ body, html {
   .hover\:scale-125:hover {
     transform: scale(1.1);
   }
+}
+
+/* Prevent text selection on navigation elements */
+.navigation-element {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
