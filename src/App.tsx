@@ -407,7 +407,9 @@ function DownloadCVButton() {
 function ContactMeButton() {
   return (
     <a
-      href="mailto:harshchoudhary227@gmail.com"
+      href="https://mail.google.com/mail/?view=cm&fs=1&to=harshchoudhary227@gmail.com&su=Contact%20from%20Portfolio&body=Hi%20Harsh,%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20get%20in%20touch.%0A%0ABest%20regards"
+      target="_blank"
+      rel="noopener noreferrer"
       className="inline-flex items-center space-x-3 bg-gradient-to-r from-green-600 via-black to-blue-600 hover:from-green-700 hover:via-gray-900 hover:to-blue-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-medium transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-green-500/50 text-base md:text-lg"
     >
       <Mail size={20} className="md:w-6 md:h-6" />
