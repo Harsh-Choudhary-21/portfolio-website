@@ -166,7 +166,7 @@ function App() {
             <div className="space-y-8">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 via-blue-500/30 to-purple-600/30 rounded-3xl blur-3xl"></div>
-                <h1 className="relative text-6xl md:text-8xl lg:text-9xl font-black text-white mb-6 tracking-tight">
+                <h1 className="relative text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tight break-words">
                   <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-pulse">
                     Harsh
                   </span>
@@ -176,10 +176,10 @@ function App() {
               </div>
               
               <div className="space-y-4">
-                <p className="text-2xl md:text-3xl lg:text-4xl text-gray-200 max-w-4xl mx-auto px-4 leading-relaxed font-light">
+                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 max-w-4xl mx-auto px-4 leading-relaxed font-light break-words">
                   Computer Science Student &
                 </p>
-                <p className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+                <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent break-words">
                   Full-Stack Developer
                 </p>
               </div>
@@ -190,11 +190,11 @@ function App() {
               <ContactInfo icon={<MapPin size={24} />} text="Noida, Uttar Pradesh" />
             </div>
             
-            <div className="flex justify-center space-x-10">
-              <SocialLink href="https://github.com/Harsh-Choudhary-21" icon={<Github size={36} />} label="GitHub" />
-              <SocialLink href="https://www.linkedin.com/in/harsh-choudhary-b87837311/" icon={<Linkedin size={36} />} label="LinkedIn" />
-              <SocialLink href="https://leetcode.com/u/g3m0n_21/" icon={<Code2 size={36} />} label="LeetCode" />
-              <SocialLink href="https://www.hackerrank.com/profile/harshchoudhary26" icon={<Trophy size={36} />} label="HackerRank" />
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+              <SocialLink href="https://github.com/Harsh-Choudhary-21" icon={<Github size={28} />} label="GitHub" />
+              <SocialLink href="https://www.linkedin.com/in/harsh-choudhary-b87837311/" icon={<Linkedin size={28} />} label="LinkedIn" />
+              <SocialLink href="https://leetcode.com/u/g3m0n_21/" icon={<Code2 size={28} />} label="LeetCode" />
+              <SocialLink href="https://www.hackerrank.com/profile/harshchoudhary26" icon={<Trophy size={28} />} label="HackerRank" />
             </div>
             
             <div className="flex flex-col sm:flex-row justify-center items-center gap-8 pt-8">
@@ -499,10 +499,10 @@ function SectionHeader({ icon, title, subtitle }: { icon: React.ReactNode; title
       <div className="flex justify-center text-cyan-400 mb-4">
         {icon}
       </div>
-      <h2 className="text-5xl md:text-7xl font-bold text-white bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent break-words">
         {title}
       </h2>
-      <p className="text-xl text-gray-400 font-light">{subtitle}</p>
+      <p className="text-base md:text-lg lg:text-xl text-gray-400 font-light break-words">{subtitle}</p>
     </div>
   )
 }
@@ -517,11 +517,11 @@ function GlassCard({ children, className = "" }: { children: React.ReactNode; cl
 
 function ContactInfo({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
-    <div className="flex items-center space-x-4 hover:text-cyan-400 transition-colors duration-300 group bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/20">
-      <div className="group-hover:scale-110 transition-transform duration-300 text-cyan-400">
+    <div className="flex items-center space-x-3 md:space-x-4 hover:text-cyan-400 transition-colors duration-300 group bg-white/10 backdrop-blur-sm rounded-2xl px-4 md:px-6 py-3 md:py-4 border border-white/20">
+      <div className="group-hover:scale-110 transition-transform duration-300 text-cyan-400 flex-shrink-0">
         {icon}
       </div>
-      <span className="text-lg font-medium">{text}</span>
+      <span className="text-sm md:text-base lg:text-lg font-medium break-words min-w-0">{text}</span>
     </div>
   )
 }
