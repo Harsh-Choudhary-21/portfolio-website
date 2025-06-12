@@ -211,29 +211,29 @@ function App() {
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4">
               <div className="lg:col-span-2 space-y-8">
-                <GlassCard className="p-10">
-                  <h3 className="text-3xl font-bold text-cyan-400 mb-6 flex items-center space-x-3">
-                    <Sparkles size={32} />
+                <GlassCard className="p-6 md:p-8">
+                  <h3 className="text-2xl md:text-3xl font-bold text-cyan-400 mb-4 flex items-center space-x-2">
+                    <Sparkles size={24} />
                     <span>My Journey</span>
                   </h3>
-                  <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
-                    <p>
-                      I'm a passionate <strong className="text-white">Computer Science student</strong> pursuing my B.Tech degree with an insatiable curiosity for technology and innovation. My programming journey began with simple curiosity and has evolved into deep expertise across multiple domains.
+                  <div className="space-y-4 text-gray-300 text-base md:text-lg leading-relaxed max-w-none">
+                    <p className="break-words">
+                      I'm a passionate <strong className="text-white">Computer Science student</strong> pursuing my B.Tech degree with curiosity for technology and innovation. My programming journey began with simple curiosity and has evolved into expertise across multiple domains.
                     </p>
-                    <p>
-                      I specialize in <strong className="text-cyan-400">full-stack development</strong>, <strong className="text-purple-400">machine learning</strong>, and <strong className="text-blue-400">artificial intelligence</strong>, always eager to tackle complex challenges and create meaningful solutions that make a difference.
+                    <p className="break-words">
+                      I specialize in <strong className="text-cyan-400">full-stack development</strong>, <strong className="text-purple-400">machine learning</strong>, and <strong className="text-blue-400">artificial intelligence</strong>, always eager to tackle complex challenges and create meaningful solutions.
                     </p>
-                    <p>
-                      Beyond coding, I'm a natural leader who thrives in collaborative environments, having served as President of my school's Tech Club and actively participating in hackathons and tech events across the country.
+                    <p className="break-words">
+                      Beyond coding, I'm a natural leader who thrives in collaborative environments, having served as President of my school's Tech Club and actively participating in hackathons and tech events.
                     </p>
                   </div>
                 </GlassCard>
               </div>
               
-              <div className="space-y-6">
-                <GlassCard className="p-8">
-                  <h3 className="text-2xl font-bold text-purple-400 mb-6">Quick Facts</h3>
-                  <div className="space-y-4">
+              <div className="space-y-4">
+                <GlassCard className="p-4 md:p-6">
+                  <h3 className="text-xl md:text-2xl font-bold text-purple-400 mb-4">Quick Facts</h3>
+                  <div className="space-y-3">
                     <FactItem icon="🎓" label="Education" value="B.Tech CSE" />
                     <FactItem icon="📍" label="Location" value="Noida, UP" />
                     <FactItem icon="💼" label="Status" value="Open to Work" />
@@ -241,11 +241,11 @@ function App() {
                   </div>
                 </GlassCard>
                 
-                <GlassCard className="p-8">
-                  <h3 className="text-2xl font-bold text-green-400 mb-6">Interests</h3>
-                  <div className="flex flex-wrap gap-3">
+                <GlassCard className="p-4 md:p-6">
+                  <h3 className="text-xl md:text-2xl font-bold text-green-400 mb-4">Interests</h3>
+                  <div className="flex flex-wrap gap-2">
                     {['AI/ML', 'Web Dev', 'Competitive Programming', 'Tech Leadership', 'Innovation', 'Problem Solving'].map((interest) => (
-                      <span key={interest} className="px-4 py-2 bg-gradient-to-r from-green-500/20 to-blue-500/20 text-green-300 rounded-full text-sm font-medium border border-green-500/30">
+                      <span key={interest} className="px-3 py-1 bg-gradient-to-r from-green-500/20 to-blue-500/20 text-green-300 rounded-full text-xs md:text-sm font-medium border border-green-500/30 break-words">
                         {interest}
                       </span>
                     ))}
@@ -330,8 +330,8 @@ function App() {
         </div>
 
         {/* Projects Section */}
-        <div className="min-w-full h-full flex items-center justify-center p-4 md:p-8">
-          <div className="max-w-7xl w-full space-y-12">
+        <div className="min-w-full h-full flex items-start justify-center p-4 md:p-8 overflow-y-auto">
+          <div className="max-w-7xl w-full space-y-8 py-8">
             <SectionHeader icon={<Briefcase size={48} />} title="Featured Projects" subtitle="What I've built" />
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
@@ -366,8 +366,8 @@ function App() {
         </div>
 
         {/* Achievements Section */}
-        <div className="min-w-full h-full flex items-center justify-center p-4 md:p-8">
-          <div className="max-w-6xl w-full space-y-12">
+        <div className="min-w-full h-full flex items-start justify-center p-4 md:p-8 overflow-y-auto">
+          <div className="max-w-6xl w-full space-y-8 py-8">
             <SectionHeader icon={<Award size={48} />} title="Achievements & Certifications" subtitle="Recognition of my work" />
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
@@ -429,8 +429,8 @@ function App() {
         </div>
 
         {/* Contact Section */}
-        <div className="min-w-full h-full flex items-center justify-center p-4 md:p-8">
-          <div className="max-w-5xl w-full space-y-12">
+        <div className="min-w-full h-full flex items-start justify-center p-4 md:p-8 overflow-y-auto">
+          <div className="max-w-5xl w-full space-y-8 py-8">
             <SectionHeader icon={<Mail size={48} />} title="Let's Connect" subtitle="Ready to collaborate" />
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-4">
@@ -586,21 +586,21 @@ function SkillCategory({ title, skills, color }: {
   }
 
   return (
-    <GlassCard className="p-10 group">
-      <h3 className={`text-3xl font-bold mb-8 bg-gradient-to-r ${colorClasses[color as keyof typeof colorClasses]} bg-clip-text text-transparent flex items-center space-x-3`}>
-        <span>{title}</span>
+    <GlassCard className="p-4 md:p-6 group">
+      <h3 className={`text-xl md:text-2xl font-bold mb-4 md:mb-6 bg-gradient-to-r ${colorClasses[color as keyof typeof colorClasses]} bg-clip-text text-transparent`}>
+        {title}
       </h3>
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {skills.map((skill) => (
-          <div key={skill.name} className="space-y-3">
+          <div key={skill.name} className="space-y-2">
             <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-3">
-                <span className="text-2xl">{skill.icon}</span>
-                <span className="text-white font-semibold text-lg">{skill.name}</span>
+              <div className="flex items-center space-x-2">
+                <span className="text-lg md:text-xl">{skill.icon}</span>
+                <span className="text-white font-semibold text-sm md:text-base break-words">{skill.name}</span>
               </div>
-              <span className="text-gray-400 font-medium">{skill.level}%</span>
+              <span className="text-gray-400 font-medium text-sm">{skill.level}%</span>
             </div>
-            <div className="w-full bg-gray-700/50 rounded-full h-3 overflow-hidden">
+            <div className="w-full bg-gray-700/50 rounded-full h-2 md:h-3 overflow-hidden">
               <div 
                 className={`h-full bg-gradient-to-r ${colorClasses[color as keyof typeof colorClasses]} rounded-full transition-all duration-1000 ease-out group-hover:animate-pulse shadow-lg`}
                 style={{ width: `${skill.level}%` }}
@@ -625,20 +625,20 @@ function TimelineItem({ type, title, organization, period, description, highligh
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <GlassCard className="p-10 group">
+    <GlassCard className="p-4 md:p-6 group">
       <div 
         className="cursor-pointer"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <div className="flex items-start space-x-6 mb-6">
-          <div className="text-4xl bg-gradient-to-r from-cyan-400 to-purple-500 p-4 rounded-2xl">{icon}</div>
-          <div className="flex-1">
-            <h3 className="text-3xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
+        <div className="flex items-start space-x-3 md:space-x-4 mb-4">
+          <div className="text-2xl md:text-3xl bg-gradient-to-r from-cyan-400 to-purple-500 p-2 md:p-3 rounded-xl flex-shrink-0">{icon}</div>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300 break-words">
               {title}
             </h3>
-            <div className="text-gray-400 text-xl mt-2 font-medium">{organization}</div>
-            <div className="text-cyan-400 text-lg mt-1 font-semibold">{period}</div>
-            <p className="text-gray-300 mt-4 text-lg leading-relaxed">{description}</p>
+            <div className="text-gray-400 text-base md:text-lg mt-1 font-medium break-words">{organization}</div>
+            <div className="text-cyan-400 text-sm md:text-base mt-1 font-semibold">{period}</div>
+            <p className="text-gray-300 mt-2 md:mt-3 text-sm md:text-base leading-relaxed break-words">{description}</p>
           </div>
         </div>
         
