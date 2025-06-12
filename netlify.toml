@@ -1,5 +1,5 @@
 [build]
-  publish = "dist"
+  publish = "dist/public"
   command = "vite build"
 
 [build.environment]
