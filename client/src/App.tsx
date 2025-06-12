@@ -28,15 +28,19 @@ function App() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isTransitioning) return
       
-      setIsTransitioning(true)
-      
-      if ((e.key === 'ArrowDown' || e.key === 'ArrowRight') && currentSection < sections.length - 1) {
+      // Only handle left/right arrows for section navigation
+      if (e.key === 'ArrowRight' && currentSection < sections.length - 1) {
+        e.preventDefault()
+        setIsTransitioning(true)
         setCurrentSection(prev => prev + 1)
-      } else if ((e.key === 'ArrowUp' || e.key === 'ArrowLeft') && currentSection > 0) {
+        setTimeout(() => setIsTransitioning(false), 800)
+      } else if (e.key === 'ArrowLeft' && currentSection > 0) {
+        e.preventDefault()
+        setIsTransitioning(true)
         setCurrentSection(prev => prev - 1)
+        setTimeout(() => setIsTransitioning(false), 800)
       }
-      
-      setTimeout(() => setIsTransitioning(false), 800)
+      // Up/Down arrows are left free for natural page scrolling within sections
     }
 
     window.addEventListener('keydown', handleKeyDown)
