@@ -10,6 +10,7 @@
     padding: 0;
     height: 100vh;
     width: 100vw;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   }
   
   html {
@@ -51,29 +52,22 @@ body, html, #root {
   width: 100vw !important;
 }
 
-/* Custom animation for the background pattern */
-@keyframes wave {
-  0% {
-    background-position: 0% 50%;
+/* Enhanced animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
   }
   50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+    transform: translateY(-10px);
   }
 }
 
-/* Enhanced hover animations */
 @keyframes glow {
-  0% {
-    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
   }
   50% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 30px rgba(59, 130, 246, 0.4);
-  }
-  100% {
-    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.6), 0 0 60px rgba(6, 182, 212, 0.4);
   }
 }
 
@@ -86,25 +80,6 @@ body, html, #root {
   }
 }
 
-.animated-container:hover {
-  animation: glow 2s ease-in-out infinite;
-}
-
-/* Floating animation for social icons */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-.social-icon:hover {
-  animation: float 1s ease-in-out infinite;
-}
-
-/* Shimmer effect for buttons */
 @keyframes shimmer {
   0% {
     background-position: -200% center;
@@ -114,32 +89,175 @@ body, html, #root {
   }
 }
 
-.shimmer-effect {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
-/* Mobile-specific styles */
+@keyframes particle-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateY(-30px) rotate(180deg);
+    opacity: 0.4;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glass morphism effects */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass-effect:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  box-shadow: 0 8px 32px rgba(6, 182, 212, 0.2);
+}
+
+/* Enhanced hover effects */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Gradient text animations */
+.gradient-text {
+  background: linear-gradient(45deg, #06b6d4, #8b5cf6, #ec4899);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Particle effects */
+.particle {
+  position: absolute;
+  background: rgba(6, 182, 212, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particle-float 8s infinite ease-in-out;
+}
+
+/* Enhanced button effects */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-secondary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-secondary:hover::before {
+  left: 100%;
+}
+
+/* Mobile optimizations */
 @media (max-width: 768px) {
-  .text-6xl {
-    @apply text-4xl;
+  .text-9xl {
+    @apply text-6xl;
   }
   
   .text-8xl {
     @apply text-5xl;
   }
   
-  .text-5xl {
+  .text-7xl {
+    @apply text-4xl;
+  }
+  
+  .text-6xl {
     @apply text-3xl;
   }
   
-  /* Adjust navigation for mobile */
-  .fixed.bottom-8 {
+  .text-5xl {
+    @apply text-2xl;
+  }
+  
+  /* Adjust spacing for mobile */
+  .space-y-12 > * + * {
+    margin-top: 2rem;
+  }
+  
+  .space-y-8 > * + * {
+    margin-top: 1.5rem;
+  }
+  
+  /* Mobile navigation adjustments */
+  .fixed.bottom-6 {
     bottom: 1rem;
   }
   
-  .fixed.top-8.left-8 {
+  .fixed.top-6.left-6 {
     top: 1rem;
     left: 1rem;
   }
@@ -156,79 +274,76 @@ body, html, #root {
   }
   
   .hover\:scale-125:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
   }
   
-  .animated-container:hover {
-    animation: none;
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+  /* Reduce animation intensity on touch devices */
+  .glass-effect:hover {
+    background: rgba(255, 255, 255, 0.08);
   }
 }
 
-/* Prevent text selection on navigation elements */
-.navigation-element {
+/* Prevent text selection on interactive elements */
+.select-none {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
 
-/* Enhanced dot navigation styles */
-.navigation-element .flex {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+/* Enhanced focus states for accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #06b6d4;
+  outline-offset: 2px;
 }
 
-/* Smooth scrolling animation for dots */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
+/* Smooth transitions for all interactive elements */
+button,
+a,
+.interactive {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Loading states */
+.loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass-effect {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ffffff;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.navigation-element button {
-  animation: slideIn 0.3s ease-out;
-}
-
-/* Gradient text effect */
-.gradient-text {
-  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ef4444);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-shift 3s ease infinite;
-}
-
-@keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
+  
+  .text-gray-300,
+  .text-gray-400 {
+    color: #ffffff;
   }
 }
 
-/* Particle effect for background */
-.particle {
-  position: absolute;
-  background: rgba(59, 130, 246, 0.1);
-  border-radius: 50%;
-  pointer-events: none;
-  animation: particle-float 6s infinite ease-in-out;
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-@keyframes particle-float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-    opacity: 0.1;
+/* Print styles */
+@media print {
+  .fixed,
+  .absolute {
+    position: static !important;
   }
-  50% {
-    transform: translateY(-20px) rotate(180deg);
-    opacity: 0.3;
+  
+  .bg-black,
+  .bg-gradient-to-br {
+    background: white !important;
+    color: black !important;
   }
 }
