@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Github, Linkedin, Mail, MapPin, Download, ChevronDown, ExternalLink, Code2, Trophy, ArrowDown, Mouse, Phone, Calendar, Award, Briefcase, GraduationCap, User, Sparkles } from 'lucide-react'
+import { Github, Linkedin, Mail, MapPin, Download, ChevronDown, ExternalLink, Code2, Trophy, ArrowDown, Mouse, Phone, Calendar, Award, Briefcase, GraduationCap, User, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 
 function App() {
   const [currentSection, setCurrentSection] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
-  const [showScrollHint, setShowScrollHint] = useState(true)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const sections = [
@@ -18,11 +17,6 @@ function App() {
   ]
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowScrollHint(false), 4000)
-    return () => clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }
@@ -31,22 +25,6 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault()
-      
-      if (isTransitioning) return
-      
-      setIsTransitioning(true)
-      
-      if (e.deltaY > 0 && currentSection < sections.length - 1) {
-        setCurrentSection(prev => prev + 1)
-      } else if (e.deltaY < 0 && currentSection > 0) {
-        setCurrentSection(prev => prev - 1)
-      }
-      
-      setTimeout(() => setIsTransitioning(false), 1000)
-    }
-
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isTransitioning) return
       
@@ -58,14 +36,12 @@ function App() {
         setCurrentSection(prev => prev - 1)
       }
       
-      setTimeout(() => setIsTransitioning(false), 1000)
+      setTimeout(() => setIsTransitioning(false), 800)
     }
 
-    window.addEventListener('wheel', handleWheel, { passive: false })
     window.addEventListener('keydown', handleKeyDown)
     
     return () => {
-      window.removeEventListener('wheel', handleWheel)
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [currentSection, isTransitioning, sections.length])
@@ -75,7 +51,19 @@ function App() {
     
     setIsTransitioning(true)
     setCurrentSection(index)
-    setTimeout(() => setIsTransitioning(false), 1000)
+    setTimeout(() => setIsTransitioning(false), 800)
+  }
+
+  const goToPrevSection = () => {
+    if (currentSection > 0) {
+      navigateToSection(currentSection - 1)
+    }
+  }
+
+  const goToNextSection = () => {
+    if (currentSection < sections.length - 1) {
+      navigateToSection(currentSection + 1)
+    }
   }
 
   return (
@@ -93,14 +81,7 @@ function App() {
 
       {/* Spline Particles Background */}
       <div className="absolute inset-0 z-0">
-        <iframe 
-          src="https://my.spline.design/particles-eiV5CEm4OqMhPPF5r05qTYr5/" 
-          frameBorder="0" 
-          width="100%" 
-          height="100%"
-          style={{ border: 'none' }}
-          title="Spline Particles Background"
-        />
+        <spline-viewer url="https://prod.spline.design/2dIHknQu2aiwt97C/scene.splinecode" style={{width: '100%', height: '100%'}}></spline-viewer>
         <div className={`absolute inset-0 transition-all duration-1000 ${
           currentSection === 0 
             ? 'bg-gradient-to-b from-black/20 via-transparent to-black/50' 
@@ -124,16 +105,33 @@ function App() {
         ))}
       </div>
 
-      {/* Scroll Hint */}
-      {showScrollHint && currentSection === 0 && (
-        <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 z-40 animate-bounce">
-          <div className="flex flex-col items-center text-white/90 space-y-3 bg-black/30 backdrop-blur-sm rounded-full px-6 py-4 border border-white/20">
-            <Mouse size={28} className="text-cyan-400" />
-            <div className="text-sm font-medium">Scroll to explore</div>
-            <ArrowDown size={18} className="text-cyan-400" />
-          </div>
-        </div>
-      )}
+      {/* Navigation Arrows */}
+      <div className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-4">
+        <button
+          onClick={goToPrevSection}
+          disabled={currentSection === 0}
+          className={`p-4 rounded-full backdrop-blur-sm border transition-all duration-300 ${
+            currentSection === 0 
+              ? 'bg-white/5 border-white/10 text-white/30 cursor-not-allowed' 
+              : 'bg-white/10 border-white/20 text-white/80 hover:bg-white/20 hover:border-white/40 hover:text-white active:scale-95'
+          }`}
+          aria-label="Previous section"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          onClick={goToNextSection}
+          disabled={currentSection === sections.length - 1}
+          className={`p-4 rounded-full backdrop-blur-sm border transition-all duration-300 ${
+            currentSection === sections.length - 1 
+              ? 'bg-white/5 border-white/10 text-white/30 cursor-not-allowed' 
+              : 'bg-white/10 border-white/20 text-white/80 hover:bg-white/20 hover:border-white/40 hover:text-white active:scale-95'
+          }`}
+          aria-label="Next section"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
 
       {/* Enhanced Navigation */}
       <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
@@ -159,12 +157,12 @@ function App() {
 
       {/* Sections Container */}
       <div 
-        className="flex h-full w-full transition-transform duration-1000 ease-out relative z-10"
+        className="flex h-full w-full transition-transform duration-800 ease-out relative z-10"
         style={{ transform: `translateX(-${currentSection * 100}%)` }}
       >
         {/* Hero Section */}
-        <div className="min-w-full h-full flex items-center justify-center p-4 md:p-8 relative">
-          <div className="text-center space-y-12 max-w-6xl w-full relative z-20">
+        <div className="min-w-full h-full flex items-center justify-center p-4 md:p-8 relative overflow-y-auto">
+          <div className="text-center space-y-8 max-w-6xl w-full relative z-20 py-8">
             <div className="space-y-8">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 via-blue-500/30 to-purple-600/30 rounded-3xl blur-3xl"></div>
@@ -207,8 +205,8 @@ function App() {
         </div>
 
         {/* About Section */}
-        <div className="min-w-full h-full flex items-center justify-center p-4 md:p-8">
-          <div className="max-w-7xl w-full space-y-12">
+        <div className="min-w-full h-full flex items-start justify-center p-4 md:p-8 overflow-y-auto">
+          <div className="max-w-7xl w-full space-y-8 py-8">
             <SectionHeader icon={<User size={48} />} title="About Me" subtitle="Get to know who I am" />
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4">
@@ -259,8 +257,8 @@ function App() {
         </div>
 
         {/* Skills Section */}
-        <div className="min-w-full h-full flex items-center justify-center p-4 md:p-8">
-          <div className="max-w-7xl w-full space-y-12">
+        <div className="min-w-full h-full flex items-start justify-center p-4 md:p-8 overflow-y-auto">
+          <div className="max-w-7xl w-full space-y-8 py-8">
             <SectionHeader icon={<Code2 size={48} />} title="Skills & Expertise" subtitle="Technologies I work with" />
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-4">
@@ -293,8 +291,8 @@ function App() {
         </div>
 
         {/* Experience Section */}
-        <div className="min-w-full h-full flex items-center justify-center p-4 md:p-8">
-          <div className="max-w-6xl w-full space-y-12">
+        <div className="min-w-full h-full flex items-start justify-center p-4 md:p-8 overflow-y-auto">
+          <div className="max-w-6xl w-full space-y-8 py-8">
             <SectionHeader icon={<GraduationCap size={48} />} title="Experience & Education" subtitle="My learning journey" />
             
             <div className="space-y-8 px-4">
