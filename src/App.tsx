@@ -91,25 +91,29 @@ function App() {
         }}
       />
 
-      {/* Spline 3D Background - Enhanced for all sections */}
+      {/* Spline Particles Background */}
       <div className="absolute inset-0 z-0">
-        <spline-viewer 
-          url="https://prod.spline.design/jMomamQ8e60As7MI/scene.splinecode"
-          style={{ width: '100%', height: '100%' }}
+        <iframe 
+          src="https://my.spline.design/particles-eiV5CEm4OqMhPPF5r05qTYr5/" 
+          frameBorder="0" 
+          width="100%" 
+          height="100%"
+          style={{ border: 'none' }}
+          title="Spline Particles Background"
         />
         <div className={`absolute inset-0 transition-all duration-1000 ${
           currentSection === 0 
-            ? 'bg-gradient-to-b from-black/10 via-transparent to-black/40' 
-            : 'bg-gradient-to-br from-black/70 via-black/50 to-black/70'
+            ? 'bg-gradient-to-b from-black/20 via-transparent to-black/50' 
+            : 'bg-gradient-to-br from-black/70 via-black/60 to-black/80'
         } pointer-events-none`} />
       </div>
 
-      {/* Floating Particles */}
+      {/* Additional Floating Particles */}
       <div className="absolute inset-0 z-5">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-30 animate-pulse"
+            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-20 animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -123,7 +127,7 @@ function App() {
       {/* Scroll Hint */}
       {showScrollHint && currentSection === 0 && (
         <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 z-40 animate-bounce">
-          <div className="flex flex-col items-center text-white/90 space-y-3 bg-black/20 backdrop-blur-sm rounded-full px-6 py-4 border border-white/10">
+          <div className="flex flex-col items-center text-white/90 space-y-3 bg-black/30 backdrop-blur-sm rounded-full px-6 py-4 border border-white/20">
             <Mouse size={28} className="text-cyan-400" />
             <div className="text-sm font-medium">Scroll to explore</div>
             <ArrowDown size={18} className="text-cyan-400" />
@@ -133,7 +137,7 @@ function App() {
 
       {/* Enhanced Navigation */}
       <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
-        <div className="flex items-center space-x-4 bg-black/30 backdrop-blur-xl rounded-full px-8 py-4 border border-white/20 shadow-2xl">
+        <div className="flex items-center space-x-4 bg-black/40 backdrop-blur-xl rounded-full px-8 py-4 border border-white/30 shadow-2xl">
           {sections.map((section, index) => (
             <button
               key={index}
@@ -145,7 +149,7 @@ function App() {
               }`}
               aria-label={`Go to ${section} section`}
             >
-              <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap capitalize">
+              <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap capitalize">
                 {section}
               </div>
             </button>
@@ -163,7 +167,7 @@ function App() {
           <div className="text-center space-y-12 max-w-6xl w-full relative z-20">
             <div className="space-y-8">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 via-blue-500/20 to-purple-600/20 rounded-3xl blur-3xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 via-blue-500/30 to-purple-600/30 rounded-3xl blur-3xl"></div>
                 <h1 className="relative text-6xl md:text-8xl lg:text-9xl font-black text-white mb-6 tracking-tight">
                   <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-pulse">
                     Harsh
@@ -477,7 +481,7 @@ function App() {
 
       {/* Section Indicator */}
       <div className="fixed top-6 left-6 z-50 text-white">
-        <div className="bg-black/30 backdrop-blur-xl rounded-2xl px-6 py-4 border border-white/20 shadow-2xl">
+        <div className="bg-black/40 backdrop-blur-xl rounded-2xl px-6 py-4 border border-white/30 shadow-2xl">
           <div className="text-sm opacity-70 mb-1">
             {currentSection + 1} / {sections.length}
           </div>
@@ -507,7 +511,7 @@ function SectionHeader({ icon, title, subtitle }: { icon: React.ReactNode; title
 
 function GlassCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl hover:bg-white/10 transition-all duration-500 hover:scale-[1.02] hover:shadow-cyan-500/20 ${className}`}>
+    <div className={`bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:bg-white/15 transition-all duration-500 hover:scale-[1.02] hover:shadow-cyan-500/20 ${className}`}>
       {children}
     </div>
   )
@@ -515,7 +519,7 @@ function GlassCard({ children, className = "" }: { children: React.ReactNode; cl
 
 function ContactInfo({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
-    <div className="flex items-center space-x-4 hover:text-cyan-400 transition-colors duration-300 group bg-white/5 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/10">
+    <div className="flex items-center space-x-4 hover:text-cyan-400 transition-colors duration-300 group bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/20">
       <div className="group-hover:scale-110 transition-transform duration-300 text-cyan-400">
         {icon}
       </div>
@@ -533,7 +537,7 @@ function SocialLink({ href, icon, label }: { href: string; icon: React.ReactNode
       className="group relative"
       aria-label={label}
     >
-      <div className="text-gray-400 hover:text-cyan-400 transform hover:scale-125 transition-all duration-300 hover:drop-shadow-lg hover:drop-shadow-cyan-400/50 group-hover:animate-pulse bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10 hover:border-cyan-400/50">
+      <div className="text-gray-400 hover:text-cyan-400 transform hover:scale-125 transition-all duration-300 hover:drop-shadow-lg hover:drop-shadow-cyan-400/50 group-hover:animate-pulse bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:border-cyan-400/50">
         {icon}
       </div>
       <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-sm px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap border border-white/20">
@@ -712,7 +716,7 @@ function CertificationCard({ title, icon, description, issuer }: {
   issuer: string;
 }) {
   return (
-    <div className="bg-white/5 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 transform hover:scale-105 border border-white/10 group">
+    <div className="bg-white/10 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 transform hover:scale-105 border border-white/20 group">
       <div className="flex items-start space-x-4">
         <div className="text-3xl bg-gradient-to-r from-yellow-400 to-orange-500 p-3 rounded-xl">{icon}</div>
         <div className="flex-1">
@@ -733,7 +737,7 @@ function AchievementCard({ title, description, year, icon }: {
   icon: string;
 }) {
   return (
-    <div className="bg-white/5 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 transform hover:scale-105 border border-white/10 group">
+    <div className="bg-white/10 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 transform hover:scale-105 border border-white/20 group">
       <div className="flex items-start space-x-4">
         <div className="text-3xl bg-gradient-to-r from-green-400 to-blue-500 p-3 rounded-xl">{icon}</div>
         <div className="flex-1">
@@ -760,7 +764,7 @@ function FactItem({ icon, label, value }: { icon: string; label: string; value: 
 
 function ContactDetail({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="flex items-center space-x-4 p-4 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300">
+    <div className="flex items-center space-x-4 p-4 bg-white/10 rounded-2xl border border-white/20 hover:bg-white/15 transition-all duration-300">
       <div className="text-cyan-400">{icon}</div>
       <div>
         <div className="text-gray-400 text-sm">{label}</div>
@@ -793,7 +797,7 @@ function SocialButton({ href, icon, label }: { href: string; icon: React.ReactNo
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center space-x-3 p-4 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 hover:border-cyan-400/50 transition-all duration-300 group"
+      className="flex items-center space-x-3 p-4 bg-white/10 rounded-2xl border border-white/20 hover:bg-white/15 hover:border-cyan-400/50 transition-all duration-300 group"
     >
       <div className="text-cyan-400 group-hover:scale-110 transition-transform duration-300">{icon}</div>
       <span className="text-white font-medium group-hover:text-cyan-400 transition-colors duration-300">{label}</span>
