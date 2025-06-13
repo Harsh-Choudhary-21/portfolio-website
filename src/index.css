@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-gray-100 antialiased;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  #root {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+}
+
+/* Hide all scrollbars */
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ensure no scrolling anywhere */
+body, html, #root {
+  overflow: hidden !important;
+  height: 100vh !important;
+  width: 100vw !important;
+}
+
+/* Custom animation for the background pattern */
+@keyframes wave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .text-6xl {
+    @apply text-4xl;
+  }
+  
+  .text-8xl {
+    @apply text-5xl;
+  }
+  
+  .text-5xl {
+    @apply text-3xl;
+  }
+  
+  /* Adjust navigation for mobile */
+  .fixed.right-8 {
+    right: 1rem;
+  }
+  
+  .fixed.bottom-8 {
+    bottom: 1rem;
+  }
+  
+  .fixed.top-8.left-8 {
+    top: 1rem;
+    left: 1rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .hover\:scale-105:hover {
+    transform: scale(1.02);
+  }
+  
+  .hover\:scale-110:hover {
+    transform: scale(1.05);
+  }
+  
+  .hover\:scale-125:hover {
+    transform: scale(1.1);
+  }
+}
+
+/* Prevent text selection on navigation elements */
+.navigation-element {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
