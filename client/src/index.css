@@ -223,43 +223,127 @@ body, html, #root {
 
 /* Mobile optimizations */
 @media (max-width: 768px) {
-  .text-9xl {
-    @apply text-6xl;
-  }
-  
+  /* Reduce text sizes more aggressively for mobile */
   .text-8xl {
-    @apply text-5xl;
-  }
-  
-  .text-7xl {
     @apply text-4xl;
   }
   
-  .text-6xl {
+  .text-7xl {
     @apply text-3xl;
   }
   
-  .text-5xl {
+  .text-6xl {
     @apply text-2xl;
+  }
+  
+  .text-5xl {
+    @apply text-xl;
+  }
+  
+  .text-4xl {
+    @apply text-lg;
+  }
+  
+  .text-3xl {
+    @apply text-base;
+  }
+  
+  .text-2xl {
+    @apply text-sm;
   }
   
   /* Adjust spacing for mobile */
   .space-y-12 > * + * {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
   
   .space-y-8 > * + * {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .space-y-6 > * + * {
+    margin-top: 0.75rem;
   }
   
   /* Mobile navigation adjustments */
   .fixed.bottom-6 {
-    bottom: 1rem;
+    bottom: 0.75rem;
   }
   
   .fixed.top-6.left-6 {
-    top: 1rem;
-    left: 1rem;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+  
+  /* Reduce padding on mobile */
+  .p-8 {
+    @apply p-3;
+  }
+  
+  .p-6 {
+    @apply p-3;
+  }
+  
+  .px-8 {
+    @apply px-4;
+  }
+  
+  .py-8 {
+    @apply py-4;
+  }
+  
+  /* Smaller rounded corners on mobile */
+  .rounded-3xl {
+    @apply rounded-2xl;
+  }
+  
+  .rounded-2xl {
+    @apply rounded-xl;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .text-4xl {
+    @apply text-base;
+  }
+  
+  .text-3xl {
+    @apply text-sm;
+  }
+  
+  .text-2xl {
+    @apply text-xs;
+  }
+  
+  /* Further reduce spacing */
+  .space-y-8 > * + * {
+    margin-top: 0.75rem;
+  }
+  
+  .space-y-6 > * + * {
+    margin-top: 0.5rem;
+  }
+  
+  .space-y-4 > * + * {
+    margin-top: 0.5rem;
+  }
+  
+  /* Minimal padding for very small screens */
+  .p-6 {
+    @apply p-2;
+  }
+  
+  .p-4 {
+    @apply p-2;
+  }
+  
+  .px-6 {
+    @apply px-3;
+  }
+  
+  .py-6 {
+    @apply py-3;
   }
 }
 
@@ -280,6 +364,12 @@ body, html, #root {
   /* Reduce animation intensity on touch devices */
   .glass-effect:hover {
     background: rgba(255, 255, 255, 0.08);
+  }
+  
+  /* Larger touch targets */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
 
@@ -345,5 +435,37 @@ a,
   .bg-gradient-to-br {
     background: white !important;
     color: black !important;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .text-4xl {
+    @apply text-2xl;
+  }
+  
+  .text-3xl {
+    @apply text-xl;
+  }
+  
+  .text-2xl {
+    @apply text-lg;
+  }
+  
+  /* Reduce vertical spacing in landscape */
+  .space-y-8 > * + * {
+    margin-top: 0.5rem;
+  }
+  
+  .space-y-6 > * + * {
+    margin-top: 0.25rem;
+  }
+  
+  .py-8 {
+    @apply py-2;
+  }
+  
+  .py-6 {
+    @apply py-2;
   }
 }
