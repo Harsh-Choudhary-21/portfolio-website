@@ -1,10 +1,10 @@
+/* client/src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   html, body {
-    @apply text-gray-100 antialiased;
     overflow: hidden;
     margin: 0;
     padding: 0;
@@ -35,14 +35,14 @@
   scrollbar-width: none;
 }
 
-/* Ensure no scrolling anywhere */
+/* Prevent scrolling anywhere */
 body, html, #root {
   overflow: hidden !important;
   height: 100vh !important;
   width: 100vw !important;
 }
 
-/* Custom animation for the background pattern */
+/* Custom animation for background pattern */
 @keyframes wave {
   0% {
     background-position: 0% 50%;
@@ -55,54 +55,26 @@ body, html, #root {
   }
 }
 
-/* Mobile typography overrides */
+/* Responsive typography and tweaks */
 @media (max-width: 768px) {
-  .text-6xl {
-    font-size: 2.25rem; /* text-4xl */
-    line-height: 2.5rem;
-  }
+  .text-6xl { font-size: 2.25rem; line-height: 2.5rem; }
+  .text-8xl { font-size: 3rem; line-height: 1; }
+  .text-5xl { font-size: 1.875rem; line-height: 2.25rem; }
 
-  .text-8xl {
-    font-size: 3rem; /* text-5xl */
-    line-height: 1;
-  }
-
-  .text-5xl {
-    font-size: 1.875rem; /* text-3xl */
-    line-height: 2.25rem;
-  }
-
-  /* Adjust navigation for mobile */
-  .fixed.right-8 {
-    right: 1rem !important;
-  }
-
-  .fixed.bottom-8 {
-    bottom: 1rem !important;
-  }
-
+  .fixed.right-8 { right: 1rem !important; }
+  .fixed.bottom-8 { bottom: 1rem !important; }
   .fixed.top-8.left-8 {
     top: 1rem !important;
     left: 1rem !important;
   }
 }
 
-/* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
-  .hover\:scale-105:hover {
-    transform: scale(1.02);
-  }
-
-  .hover\:scale-110:hover {
-    transform: scale(1.05);
-  }
-
-  .hover\:scale-125:hover {
-    transform: scale(1.1);
-  }
+  .hover\:scale-105:hover { transform: scale(1.02); }
+  .hover\:scale-110:hover { transform: scale(1.05); }
+  .hover\:scale-125:hover { transform: scale(1.1); }
 }
 
-/* Prevent text selection on navigation elements */
 .navigation-element {
   -webkit-user-select: none;
   -moz-user-select: none;
