@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  html, body {
     @apply text-gray-100 antialiased;
     overflow: hidden;
     margin: 0;
@@ -11,20 +11,11 @@
     height: 100vh;
     width: 100vw;
   }
-  
-  html {
-    scroll-behavior: smooth;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    width: 100vw;
-  }
-  
+
   * {
     box-sizing: border-box;
   }
-  
+
   #root {
     height: 100vh;
     width: 100vw;
@@ -64,32 +55,35 @@ body, html, #root {
   }
 }
 
-/* Mobile-specific styles */
+/* Mobile typography overrides */
 @media (max-width: 768px) {
   .text-6xl {
-    @apply text-4xl;
+    font-size: 2.25rem; /* text-4xl */
+    line-height: 2.5rem;
   }
-  
+
   .text-8xl {
-    @apply text-5xl;
+    font-size: 3rem; /* text-5xl */
+    line-height: 1;
   }
-  
+
   .text-5xl {
-    @apply text-3xl;
+    font-size: 1.875rem; /* text-3xl */
+    line-height: 2.25rem;
   }
-  
+
   /* Adjust navigation for mobile */
   .fixed.right-8 {
-    right: 1rem;
+    right: 1rem !important;
   }
-  
+
   .fixed.bottom-8 {
-    bottom: 1rem;
+    bottom: 1rem !important;
   }
-  
+
   .fixed.top-8.left-8 {
-    top: 1rem;
-    left: 1rem;
+    top: 1rem !important;
+    left: 1rem !important;
   }
 }
 
@@ -98,11 +92,11 @@ body, html, #root {
   .hover\:scale-105:hover {
     transform: scale(1.02);
   }
-  
+
   .hover\:scale-110:hover {
     transform: scale(1.05);
   }
-  
+
   .hover\:scale-125:hover {
     transform: scale(1.1);
   }
