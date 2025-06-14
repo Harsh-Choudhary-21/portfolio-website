@@ -95,7 +95,7 @@ function App() {
 
       {/* Additional Floating Particles - Reduced on mobile */}
       <div className="absolute inset-0 z-5">
-        {[...Array(window.innerWidth < 768 ? 8 : 15)].map((_, i) => (
+        {[...Array(typeof window !== 'undefined' && window.innerWidth < 768 ? 8 : 15)].map((_, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-20 animate-pulse"
