@@ -184,7 +184,7 @@ function App() {
                   Computer Science Student &
                 </p>
                 <p className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent break-words">
-                  Full-Stack Developer
+                  AI-ML Enthusiast
                 </p>
               </div>
             </div>
