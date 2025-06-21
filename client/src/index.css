@@ -51,6 +51,40 @@ body, html, #root {
   width: 100vw !important;
 }
 
+/* Flip Card Animations */
+.flip-card {
+  perspective: 1000px;
+  width: 100%;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
 /* Keyframes */
 @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 @keyframes glow { 0%,100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.3); } 50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.6), 0 0 60px rgba(6, 182, 212, 0.4); } }
@@ -139,6 +173,11 @@ body, html, #root {
   .hover\:scale-110:hover { transform: scale(1.05); }
   .hover\:scale-125:hover { transform: scale(1.08); }
   button, a { min-height: 44px; min-width: 44px; }
+  
+  /* Mobile flip card interactions */
+  .flip-card:active .flip-card-inner {
+    transform: rotateY(180deg);
+  }
 }
 
 /* Other utils */
@@ -175,6 +214,18 @@ button, a, .interactive {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  
+  /* Disable flip animations for reduced motion */
+  .flip-card-inner {
+    transition: none;
+  }
+  .flip-card-inner.flipped {
+    transform: none;
+  }
+  .flip-card-back {
+    transform: none;
+    position: relative;
+  }
 }
 @media print {
   .fixed, .absolute {
@@ -183,5 +234,41 @@ button, a, .interactive {
   .bg-black, .bg-gradient-to-br {
     background: white !important;
     color: black !important;
+  }
+}
+
+/* Enhanced button styles */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+button:disabled:hover {
+  transform: none !important;
+  scale: 1 !important;
+}
+
+/* Improved navigation dots */
+.fixed button[aria-label*="Go to"] {
+  position: relative;
+  overflow: visible;
+}
+
+.fixed button[aria-label*="Go to"]:focus-visible {
+  outline: 2px solid #06b6d4;
+  outline-offset: 4px;
+}
+
+/* Better mobile touch targets */
+@media (max-width: 768px) {
+  .fixed button {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 12px;
+  }
+  
+  .flip-card {
+    min-height: 80px;
   }
 }

@@ -18,7 +18,11 @@ function App() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+      try {
+        setMousePosition({ x: e.clientX, y: e.clientY })
+      } catch (error) {
+        console.warn('Mouse move error:', error)
+      }
     }
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
@@ -26,21 +30,25 @@ function App() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (isTransitioning) return
-      
-      // Only handle left/right arrows for section navigation
-      if (e.key === 'ArrowRight' && currentSection < sections.length - 1) {
-        e.preventDefault()
-        setIsTransitioning(true)
-        setCurrentSection(prev => prev + 1)
-        setTimeout(() => setIsTransitioning(false), 800)
-      } else if (e.key === 'ArrowLeft' && currentSection > 0) {
-        e.preventDefault()
-        setIsTransitioning(true)
-        setCurrentSection(prev => prev - 1)
-        setTimeout(() => setIsTransitioning(false), 800)
+      try {
+        if (isTransitioning) return
+        
+        // Only handle left/right arrows for section navigation
+        if (e.key === 'ArrowRight' && currentSection < sections.length - 1) {
+          e.preventDefault()
+          setIsTransitioning(true)
+          setCurrentSection(prev => prev + 1)
+          setTimeout(() => setIsTransitioning(false), 800)
+        } else if (e.key === 'ArrowLeft' && currentSection > 0) {
+          e.preventDefault()
+          setIsTransitioning(true)
+          setCurrentSection(prev => prev - 1)
+          setTimeout(() => setIsTransitioning(false), 800)
+        }
+      } catch (error) {
+        console.warn('Keyboard navigation error:', error)
+        setIsTransitioning(false)
       }
-      // Up/Down arrows are left free for natural page scrolling within sections
     }
 
     window.addEventListener('keydown', handleKeyDown)
@@ -51,11 +59,16 @@ function App() {
   }, [currentSection, isTransitioning, sections.length])
 
   const navigateToSection = (index: number) => {
-    if (isTransitioning || index === currentSection) return
-    
-    setIsTransitioning(true)
-    setCurrentSection(index)
-    setTimeout(() => setIsTransitioning(false), 800)
+    try {
+      if (isTransitioning || index === currentSection || index < 0 || index >= sections.length) return
+      
+      setIsTransitioning(true)
+      setCurrentSection(index)
+      setTimeout(() => setIsTransitioning(false), 800)
+    } catch (error) {
+      console.warn('Navigation error:', error)
+      setIsTransitioning(false)
+    }
   }
 
   const goToPrevSection = () => {
@@ -109,49 +122,49 @@ function App() {
         ))}
       </div>
 
-      {/* Navigation Arrows - Repositioned for mobile */}
-      <div className="fixed left-2 md:left-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-2 md:space-y-4">
+      {/* Navigation Arrows - Fixed positioning */}
+      <div className="fixed left-4 md:left-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-3 md:space-y-4">
         <button
           onClick={goToPrevSection}
           disabled={currentSection === 0}
-          className={`p-2 md:p-4 rounded-full backdrop-blur-sm border transition-all duration-300 ${
+          className={`p-3 md:p-4 rounded-full backdrop-blur-sm border transition-all duration-300 ${
             currentSection === 0 
               ? 'bg-white/5 border-white/10 text-white/30 cursor-not-allowed' 
               : 'bg-white/10 border-white/20 text-white/80 hover:bg-white/20 hover:border-white/40 hover:text-white active:scale-95'
           }`}
           aria-label="Previous section"
         >
-          <ChevronLeft size={16} className="md:w-6 md:h-6" />
+          <ChevronLeft size={20} className="md:w-6 md:h-6" />
         </button>
         <button
           onClick={goToNextSection}
           disabled={currentSection === sections.length - 1}
-          className={`p-2 md:p-4 rounded-full backdrop-blur-sm border transition-all duration-300 ${
+          className={`p-3 md:p-4 rounded-full backdrop-blur-sm border transition-all duration-300 ${
             currentSection === sections.length - 1 
               ? 'bg-white/5 border-white/10 text-white/30 cursor-not-allowed' 
               : 'bg-white/10 border-white/20 text-white/80 hover:bg-white/20 hover:border-white/40 hover:text-white active:scale-95'
           }`}
           aria-label="Next section"
         >
-          <ChevronRight size={16} className="md:w-6 md:h-6" />
+          <ChevronRight size={20} className="md:w-6 md:h-6" />
         </button>
       </div>
 
-      {/* Enhanced Navigation - Smaller on mobile */}
-      <div className="fixed bottom-3 md:bottom-6 left-1/2 transform -translate-x-1/2 z-50">
-        <div className="flex items-center space-x-2 md:space-x-4 bg-black/40 backdrop-blur-xl rounded-full px-4 md:px-8 py-2 md:py-4 border border-white/30 shadow-2xl">
+      {/* Enhanced Navigation - Fixed positioning */}
+      <div className="fixed bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+        <div className="flex items-center space-x-3 md:space-x-4 bg-black/40 backdrop-blur-xl rounded-full px-6 md:px-8 py-3 md:py-4 border border-white/30 shadow-2xl">
           {sections.map((section, index) => (
             <button
               key={index}
               onClick={() => navigateToSection(index)}
               className={`relative group transition-all duration-500 ${
                 currentSection === index 
-                  ? 'w-8 md:w-12 h-2 md:h-3 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-lg shadow-cyan-400/50' 
-                  : 'w-2 md:w-3 h-2 md:h-3 bg-gray-500 hover:bg-gray-300 rounded-full hover:scale-125'
+                  ? 'w-10 md:w-12 h-3 md:h-3 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-lg shadow-cyan-400/50' 
+                  : 'w-3 md:w-3 h-3 md:h-3 bg-gray-500 hover:bg-gray-300 rounded-full hover:scale-125'
               }`}
               aria-label={`Go to ${section} section`}
             >
-              <div className="absolute -top-8 md:-top-10 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-2 md:px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap capitalize">
+              <div className="absolute -top-10 md:-top-12 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-3 md:px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap capitalize">
                 {section}
               </div>
             </button>
@@ -260,33 +273,33 @@ function App() {
           </div>
         </div>
 
-        {/* Skills Section */}
+        {/* Skills Section with Flip Cards */}
         <div className="min-w-full h-full flex items-start justify-center p-3 md:p-8 overflow-y-auto">
           <div className="max-w-7xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
             <SectionHeader icon={<Code2 size={32} className="md:w-12 md:h-12" />} title="Skills & Expertise" subtitle="Technologies I work with" />
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 px-2 md:px-4">
-              <SkillCategory 
+              <FlipSkillCategory 
                 title="Technical Arsenal" 
                 skills={[
-                  { name: 'Python', level: 90, icon: '🐍' },
-                  { name: 'C++', level: 85, icon: '⚡' },
-                  { name: 'React.js', level: 80, icon: '⚛️' },
-                  { name: 'Node.js', level: 75, icon: '🟢' },
-                  { name: 'MySQL', level: 80, icon: '🗄️' },
-                  { name: 'Machine Learning', level: 70, icon: '🤖' }
+                  { name: 'Python', level: 90, icon: '🐍', description: 'Advanced programming with frameworks like Django, Flask, and data science libraries' },
+                  { name: 'C++', level: 85, icon: '⚡', description: 'Competitive programming and system-level development' },
+                  { name: 'React.js', level: 80, icon: '⚛️', description: 'Modern frontend development with hooks and state management' },
+                  { name: 'Node.js', level: 75, icon: '🟢', description: 'Backend development and API creation' },
+                  { name: 'MySQL', level: 80, icon: '🗄️', description: 'Database design, optimization, and complex queries' },
+                  { name: 'Machine Learning', level: 70, icon: '🤖', description: 'ML algorithms, data preprocessing, and model deployment' }
                 ]}
                 color="cyan"
               />
-              <SkillCategory 
+              <FlipSkillCategory 
                 title="Professional Skills" 
                 skills={[
-                  { name: 'Team Leadership', level: 85, icon: '👥' },
-                  { name: 'Problem Solving', level: 90, icon: '🧩' },
-                  { name: 'Communication', level: 80, icon: '💬' },
-                  { name: 'Project Management', level: 75, icon: '📊' },
-                  { name: 'Time Management', level: 85, icon: '⏰' },
-                  { name: 'Adaptability', level: 88, icon: '🔄' }
+                  { name: 'Team Leadership', level: 85, icon: '👥', description: 'Leading tech teams and managing cross-functional projects' },
+                  { name: 'Problem Solving', level: 90, icon: '🧩', description: 'Analytical thinking and creative solution development' },
+                  { name: 'Communication', level: 80, icon: '💬', description: 'Technical writing, presentations, and stakeholder management' },
+                  { name: 'Project Management', level: 75, icon: '📊', description: 'Agile methodologies and timeline management' },
+                  { name: 'Time Management', level: 85, icon: '⏰', description: 'Prioritization and efficient workflow optimization' },
+                  { name: 'Adaptability', level: 88, icon: '🔄', description: 'Quick learning and adaptation to new technologies' }
                 ]}
                 color="purple"
               />
@@ -432,8 +445,8 @@ function App() {
           </div>
         </div>
 
-        {/* Contact Section */}
-        <div className="min-w-full h-full flex items-start justify-center p-3 md:p-8 overflow-y-auto">
+        {/* Contact Section - Fixed layout */}
+        <div className="min-w-full h-full flex items-center justify-center p-3 md:p-8 overflow-y-auto">
           <div className="max-w-5xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
             <SectionHeader icon={<Mail size={32} className="md:w-12 md:h-12" />} title="Let's Connect" subtitle="Ready to collaborate" />
             
@@ -481,9 +494,9 @@ function App() {
         </div>
       </div>
 
-      {/* Section Indicator - Smaller on mobile */}
-      <div className="fixed top-2 md:top-6 left-2 md:left-6 z-50 text-white">
-        <div className="bg-black/40 backdrop-blur-xl rounded-xl md:rounded-2xl px-3 md:px-6 py-2 md:py-4 border border-white/30 shadow-2xl">
+      {/* Section Indicator - Fixed positioning */}
+      <div className="fixed top-4 md:top-6 left-4 md:left-6 z-50 text-white">
+        <div className="bg-black/40 backdrop-blur-xl rounded-xl md:rounded-2xl px-4 md:px-6 py-3 md:py-4 border border-white/30 shadow-2xl">
           <div className="text-xs md:text-sm opacity-70 mb-1">
             {currentSection + 1} / {sections.length}
           </div>
@@ -579,9 +592,10 @@ function ContactMeButton() {
   )
 }
 
-function SkillCategory({ title, skills, color }: { 
+// New Flip Card Skill Component
+function FlipSkillCategory({ title, skills, color }: { 
   title: string; 
-  skills: { name: string; level: number; icon: string }[];
+  skills: { name: string; level: number; icon: string; description: string }[];
   color: string;
 }) {
   const colorClasses = {
@@ -594,26 +608,63 @@ function SkillCategory({ title, skills, color }: {
       <h3 className={`text-base md:text-xl xl:text-2xl font-bold mb-3 md:mb-6 bg-gradient-to-r ${colorClasses[color as keyof typeof colorClasses]} bg-clip-text text-transparent`}>
         {title}
       </h3>
-      <div className="space-y-3 md:space-y-6">
+      <div className="space-y-3 md:space-y-4">
         {skills.map((skill) => (
-          <div key={skill.name} className="space-y-1 md:space-y-2">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-1 md:space-x-2">
-                <span className="text-sm md:text-lg xl:text-xl">{skill.icon}</span>
-                <span className="text-white font-semibold text-xs md:text-sm xl:text-base break-words">{skill.name}</span>
-              </div>
-              <span className="text-gray-400 font-medium text-xs md:text-sm">{skill.level}%</span>
-            </div>
-            <div className="w-full bg-gray-700/50 rounded-full h-1.5 md:h-2 xl:h-3 overflow-hidden">
-              <div 
-                className={`h-full bg-gradient-to-r ${colorClasses[color as keyof typeof colorClasses]} rounded-full transition-all duration-1000 ease-out group-hover:animate-pulse shadow-lg`}
-                style={{ width: `${skill.level}%` }}
-              />
-            </div>
-          </div>
+          <FlipSkillCard key={skill.name} skill={skill} color={color} />
         ))}
       </div>
     </GlassCard>
+  )
+}
+
+function FlipSkillCard({ skill, color }: { 
+  skill: { name: string; level: number; icon: string; description: string };
+  color: string;
+}) {
+  const [isFlipped, setIsFlipped] = useState(false)
+  
+  const colorClasses = {
+    cyan: 'from-cyan-500 to-blue-600',
+    purple: 'from-purple-500 to-pink-600',
+  }
+
+  return (
+    <div 
+      className="flip-card h-16 md:h-20 cursor-pointer"
+      onMouseEnter={() => setIsFlipped(true)}
+      onMouseLeave={() => setIsFlipped(false)}
+      onClick={() => setIsFlipped(!isFlipped)}
+    >
+      <div className={`flip-card-inner ${isFlipped ? 'flipped' : ''}`}>
+        {/* Front Side */}
+        <div className="flip-card-front bg-white/10 rounded-xl border border-white/20 p-3 md:p-4">
+          <div className="flex justify-between items-center mb-2">
+            <div className="flex items-center space-x-2">
+              <span className="text-lg md:text-xl">{skill.icon}</span>
+              <span className="text-white font-semibold text-sm md:text-base">{skill.name}</span>
+            </div>
+            <span className="text-gray-400 font-medium text-xs md:text-sm">{skill.level}%</span>
+          </div>
+          <div className="w-full bg-gray-700/50 rounded-full h-2 overflow-hidden">
+            <div 
+              className={`h-full bg-gradient-to-r ${colorClasses[color as keyof typeof colorClasses]} rounded-full transition-all duration-1000 ease-out shadow-lg`}
+              style={{ width: `${skill.level}%` }}
+            />
+          </div>
+        </div>
+        
+        {/* Back Side */}
+        <div className="flip-card-back bg-white/15 rounded-xl border border-white/30 p-3 md:p-4">
+          <div className="flex items-start space-x-2 h-full">
+            <span className="text-lg md:text-xl flex-shrink-0">{skill.icon}</span>
+            <div className="flex-1">
+              <h4 className="text-white font-semibold text-sm md:text-base mb-1">{skill.name}</h4>
+              <p className="text-gray-300 text-xs md:text-sm leading-relaxed">{skill.description}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -684,6 +735,10 @@ function ProjectCard({ title, tech, description, image, gradient, link }: {
             src={image} 
             alt={title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=600&h=400&fit=crop';
+            }}
           />
           <div className={`absolute inset-0 bg-gradient-to-t ${gradient} opacity-60`} />
           <div className="absolute top-2 right-2">
