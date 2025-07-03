@@ -1,10 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Github, Linkedin, Mail, MapPin, Download, ChevronDown, ExternalLink, Code2, Trophy, ArrowDown, Mouse, Phone, Calendar, Award, Briefcase, GraduationCap, User, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
+
+// Declare Vanta for TypeScript
+declare global {
+  interface Window {
+    VANTA: any;
+    THREE: any;
+  }
+}
 
 function App() {
   const [currentSection, setCurrentSection] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const vantaRef = useRef<HTMLDivElement>(null)
+  const vantaEffect = useRef<any>(null)
 
   const sections = [
     'hero',
@@ -15,6 +25,33 @@ function App() {
     'achievements',
     'contact'
   ]
+
+  // Initialize Vanta.js background
+  useEffect(() => {
+    if (!vantaEffect.current && vantaRef.current && window.VANTA) {
+      vantaEffect.current = window.VANTA.NET({
+        el: vantaRef.current,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x06b6d4,
+        backgroundColor: 0x000000,
+        points: 10.00,
+        maxDistance: 20.00,
+        spacing: 15.00
+      })
+    }
+    return () => {
+      if (vantaEffect.current) {
+        vantaEffect.current.destroy()
+        vantaEffect.current = null
+      }
+    }
+  }, [])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -85,9 +122,23 @@ function App() {
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-black relative">
+      {/* Vanta.js Background */}
+      <div 
+        ref={vantaRef} 
+        className="absolute inset-0 z-0"
+        style={{ width: '100%', height: '100%' }}
+      />
+
+      {/* Overlay for better text readability */}
+      <div className={`absolute inset-0 z-5 transition-all duration-1000 ${
+        currentSection === 0 
+          ? 'bg-gradient-to-b from-black/30 via-transparent to-black/60' 
+          : 'bg-gradient-to-br from-black/70 via-black/60 to-black/80'
+      } pointer-events-none`} />
+
       {/* Cursor Glow Effect - Hidden on mobile */}
       <div 
-        className="fixed w-96 h-96 pointer-events-none z-0 opacity-20 transition-opacity duration-300 hidden md:block"
+        className="fixed w-96 h-96 pointer-events-none z-10 opacity-20 transition-opacity duration-300 hidden md:block"
         style={{
           left: mousePosition.x - 192,
           top: mousePosition.y - 192,
@@ -96,18 +147,8 @@ function App() {
         }}
       />
 
-      {/* Spline Particles Background */}
-      <div className="absolute inset-0 z-0">
-        <spline-viewer url="https://prod.spline.design/2dIHknQu2aiwt97C/scene.splinecode" style={{width: '100%', height: '100%'}}></spline-viewer>
-        <div className={`absolute inset-0 transition-all duration-1000 ${
-          currentSection === 0 
-            ? 'bg-gradient-to-b from-black/20 via-transparent to-black/50' 
-            : 'bg-gradient-to-br from-black/70 via-black/60 to-black/80'
-        } pointer-events-none`} />
-      </div>
-
       {/* Additional Floating Particles - Reduced on mobile */}
-      <div className="absolute inset-0 z-5">
+      <div className="absolute inset-0 z-15">
         {[...Array(typeof window !== 'undefined' && window.innerWidth < 768 ? 8 : 15)].map((_, i) => (
           <div
             key={i}
@@ -174,7 +215,7 @@ function App() {
 
       {/* Sections Container */}
       <div 
-        className="flex h-full w-full transition-transform duration-800 ease-out relative z-10"
+        className="flex h-full w-full transition-transform duration-800 ease-out relative z-20"
         style={{ transform: `translateX(-${currentSection * 100}%)` }}
       >
         {/* Hero Section */}
@@ -372,8 +413,8 @@ function App() {
               
               <ProjectCard
                 title="Interactive Portfolio"
-                tech={['React', 'TypeScript', 'Tailwind', 'Spline']}
-                description="This responsive portfolio built with modern technologies and enhanced with 3D elements for an immersive user experience."
+                tech={['React', 'TypeScript', 'Tailwind', 'Vanta.js']}
+                description="This responsive portfolio built with modern technologies and enhanced with animated 3D backgrounds for an immersive user experience."
                 image="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=600&h=400&fit=crop"
                 gradient="from-purple-500 to-pink-600"
                 link="https://github.com/Harsh-Choudhary-21"

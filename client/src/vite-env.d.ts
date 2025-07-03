@@ -8,3 +8,10 @@ declare namespace JSX {
     };
   }
 }
+
+declare global {
+  interface Window {
+    VANTA: any;
+    THREE: any;
+  }
+}
