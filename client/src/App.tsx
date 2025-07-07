@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { NavigationArrows, NavigationDots, SectionIndicator } from './components/Navigation'
+import { NavigationArrows, NavigationDots, SectionIndicator, ScrollProgress } from './components/Navigation'
 import { HeroSection } from './sections/HeroSection'
 import { AboutSection } from './sections/AboutSection'
 import { Code2, GraduationCap, Briefcase, Award, Mail } from 'lucide-react'
@@ -21,9 +21,12 @@ declare global {
 function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set([0]))
+  const [currentSection, setCurrentSection] = useState(0)
+  const [scrollProgress, setScrollProgress] = useState(0)
   const vantaRef = useRef<HTMLDivElement>(null)
   const vantaEffect = useRef<any>(null)
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const sections = [
     'hero',
@@ -76,7 +79,33 @@ function App() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Intersection Observer for scroll animations
+  // Enhanced scroll tracking
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return
+      
+      const scrollTop = containerRef.current.scrollTop
+      const scrollHeight = containerRef.current.scrollHeight - containerRef.current.clientHeight
+      const progress = Math.min(scrollTop / scrollHeight, 1)
+      setScrollProgress(progress)
+
+      // Determine current section based on scroll position
+      const sectionHeight = containerRef.current.clientHeight
+      const newCurrentSection = Math.min(
+        Math.floor(scrollTop / sectionHeight),
+        sections.length - 1
+      )
+      setCurrentSection(newCurrentSection)
+    }
+
+    const container = containerRef.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll, { passive: true })
+      return () => container.removeEventListener('scroll', handleScroll)
+    }
+  }, [sections.length])
+
+  // Intersection Observer for scroll animations with improved settings
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -88,8 +117,9 @@ function App() {
         })
       },
       {
-        threshold: 0.3,
-        rootMargin: '-10% 0px -10% 0px'
+        threshold: 0.2,
+        rootMargin: '-5% 0px -5% 0px',
+        root: containerRef.current
       }
     )
 
@@ -100,19 +130,21 @@ function App() {
     return () => observer.disconnect()
   }, [])
 
-  // Smooth scroll to section
+  // Smooth scroll to section with improved behavior
   const scrollToSection = (index: number) => {
+    const container = containerRef.current
     const section = sectionRefs.current[index]
-    if (section) {
-      section.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+    if (container && section) {
+      const sectionTop = section.offsetTop
+      container.scrollTo({
+        top: sectionTop,
+        behavior: 'smooth'
       })
     }
   }
 
   return (
-    <div className="min-h-screen w-full bg-black relative overflow-x-hidden">
+    <div className="h-screen w-full bg-black relative overflow-hidden">
       {/* Enhanced Vanta.js Background */}
       <div 
         ref={vantaRef} 
@@ -121,31 +153,31 @@ function App() {
       />
 
       {/* Enhanced overlay with gradient effects */}
-      <div className="fixed inset-0 z-5 bg-gradient-to-br from-black/60 via-black/40 to-black/70 pointer-events-none" />
-      <div className="fixed inset-0 z-6 bg-gradient-to-t from-black/80 via-transparent to-black/60 pointer-events-none" />
+      <div className="fixed inset-0 z-5 bg-gradient-to-br from-black/50 via-black/30 to-black/60 pointer-events-none" />
+      <div className="fixed inset-0 z-6 bg-gradient-to-t from-black/70 via-transparent to-black/50 pointer-events-none" />
 
       {/* Enhanced cursor glow effect */}
       <div 
-        className="fixed w-96 h-96 pointer-events-none z-10 opacity-30 transition-all duration-500 hidden md:block"
+        className="fixed w-96 h-96 pointer-events-none z-10 opacity-25 transition-all duration-300 hidden md:block"
         style={{
           left: mousePosition.x - 192,
           top: mousePosition.y - 192,
-          background: 'radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, rgba(139, 92, 246, 0.2) 50%, transparent 70%)',
-          filter: 'blur(60px)',
+          background: 'radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, rgba(139, 92, 246, 0.15) 50%, transparent 70%)',
+          filter: 'blur(40px)',
         }}
       />
 
       {/* Enhanced floating particles */}
       <div className="fixed inset-0 z-15 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-40 animate-pulse"
+            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-30 animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${4 + Math.random() * 3}s`
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${3 + Math.random() * 2}s`
             }}
           />
         ))}
@@ -153,24 +185,30 @@ function App() {
 
       {/* Navigation Components */}
       <NavigationDots 
-        currentSection={0}
+        currentSection={currentSection}
         sections={sections}
         onNavigate={scrollToSection}
       />
       
       <SectionIndicator 
-        currentSection={0}
+        currentSection={currentSection}
         sections={sections}
       />
 
-      {/* Vertical Sections Container */}
-      <div className="relative z-20">
+      <ScrollProgress progress={scrollProgress} />
+
+      {/* Scrollable Container */}
+      <div 
+        ref={containerRef}
+        className="h-full w-full overflow-y-auto overflow-x-hidden relative z-20 scroll-smooth"
+        style={{ scrollBehavior: 'smooth' }}
+      >
         {/* Hero Section */}
         <div 
           ref={el => sectionRefs.current[0] = el}
           data-section="0"
-          className={`min-h-screen transition-all duration-1000 ${
-            visibleSections.has(0) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          className={`min-h-screen transition-all duration-700 ease-out ${
+            visibleSections.has(0) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <HeroSection />
@@ -180,8 +218,8 @@ function App() {
         <div 
           ref={el => sectionRefs.current[1] = el}
           data-section="1"
-          className={`min-h-screen transition-all duration-1000 delay-200 ${
-            visibleSections.has(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          className={`min-h-screen transition-all duration-700 ease-out delay-100 ${
+            visibleSections.has(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <AboutSection />
@@ -191,20 +229,20 @@ function App() {
         <div 
           ref={el => sectionRefs.current[2] = el}
           data-section="2"
-          className={`min-h-screen flex items-start justify-center p-3 md:p-8 overflow-y-auto transition-all duration-1000 delay-300 ${
-            visibleSections.has(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-200 ${
+            visibleSections.has(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <div className="max-w-7xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
-            <div className={`transition-all duration-800 delay-500 ${
-              visibleSections.has(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            <div className={`transition-all duration-600 ease-out delay-300 ${
+              visibleSections.has(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}>
               <SectionHeader icon={<Code2 size={32} className="md:w-12 md:h-12" />} title="Skills & Expertise" subtitle="Technologies I work with" />
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 px-2 md:px-4">
-              <div className={`transition-all duration-800 delay-700 ${
-                visibleSections.has(2) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+              <div className={`transition-all duration-600 ease-out delay-400 ${
+                visibleSections.has(2) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
               }`}>
                 <FlipSkillCategory 
                   title="Technical Arsenal" 
@@ -219,8 +257,8 @@ function App() {
                   color="cyan"
                 />
               </div>
-              <div className={`transition-all duration-800 delay-900 ${
-                visibleSections.has(2) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+              <div className={`transition-all duration-600 ease-out delay-500 ${
+                visibleSections.has(2) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
               }`}>
                 <FlipSkillCategory 
                   title="Professional Skills" 
@@ -243,20 +281,20 @@ function App() {
         <div 
           ref={el => sectionRefs.current[3] = el}
           data-section="3"
-          className={`min-h-screen flex items-start justify-center p-3 md:p-8 overflow-y-auto transition-all duration-1000 delay-400 ${
-            visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-300 ${
+            visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <div className="max-w-6xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
-            <div className={`transition-all duration-800 delay-600 ${
-              visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            <div className={`transition-all duration-600 ease-out delay-400 ${
+              visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}>
               <SectionHeader icon={<GraduationCap size={32} className="md:w-12 md:h-12" />} title="Experience & Education" subtitle="My learning journey" />
             </div>
             
             <div className="space-y-4 md:space-y-8 px-2 md:px-4">
-              <div className={`transition-all duration-800 delay-800 ${
-                visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              <div className={`transition-all duration-600 ease-out delay-500 ${
+                visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}>
                 <TimelineItem
                   type="education"
@@ -274,8 +312,8 @@ function App() {
                 />
               </div>
               
-              <div className={`transition-all duration-800 delay-1000 ${
-                visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              <div className={`transition-all duration-600 ease-out delay-600 ${
+                visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}>
                 <TimelineItem
                   type="education"
@@ -300,13 +338,13 @@ function App() {
         <div 
           ref={el => sectionRefs.current[4] = el}
           data-section="4"
-          className={`min-h-screen flex items-start justify-center p-3 md:p-8 overflow-y-auto transition-all duration-1000 delay-500 ${
-            visibleSections.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-400 ${
+            visibleSections.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <div className="max-w-7xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
-            <div className={`transition-all duration-800 delay-700 ${
-              visibleSections.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            <div className={`transition-all duration-600 ease-out delay-500 ${
+              visibleSections.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}>
               <SectionHeader icon={<Briefcase size={32} className="md:w-12 md:h-12" />} title="Featured Projects" subtitle="What I've built" />
             </div>
@@ -340,10 +378,10 @@ function App() {
               ].map((project, index) => (
                 <div 
                   key={project.title}
-                  className={`transition-all duration-800 ${
-                    visibleSections.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  className={`transition-all duration-600 ease-out ${
+                    visibleSections.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                   }`}
-                  style={{ transitionDelay: `${900 + index * 200}ms` }}
+                  style={{ transitionDelay: `${600 + index * 100}ms` }}
                 >
                   <ProjectCard {...project} />
                 </div>
@@ -356,20 +394,20 @@ function App() {
         <div 
           ref={el => sectionRefs.current[5] = el}
           data-section="5"
-          className={`min-h-screen flex items-start justify-center p-3 md:p-8 overflow-y-auto transition-all duration-1000 delay-600 ${
-            visibleSections.has(5) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-500 ${
+            visibleSections.has(5) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <div className="max-w-6xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
-            <div className={`transition-all duration-800 delay-800 ${
-              visibleSections.has(5) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            <div className={`transition-all duration-600 ease-out delay-600 ${
+              visibleSections.has(5) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}>
               <SectionHeader icon={<Award size={32} className="md:w-12 md:h-12" />} title="Achievements & Certifications" subtitle="Recognition of my work" />
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 px-2 md:px-4">
-              <div className={`transition-all duration-800 delay-1000 ${
-                visibleSections.has(5) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+              <div className={`transition-all duration-600 ease-out delay-700 ${
+                visibleSections.has(5) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
               }`}>
                 <GlassCard className="p-4 md:p-8">
                   <h3 className="text-lg md:text-2xl font-bold text-yellow-400 mb-4 md:mb-8 flex items-center space-x-2 md:space-x-3">
@@ -399,8 +437,8 @@ function App() {
                 </GlassCard>
               </div>
               
-              <div className={`transition-all duration-800 delay-1200 ${
-                visibleSections.has(5) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+              <div className={`transition-all duration-600 ease-out delay-800 ${
+                visibleSections.has(5) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
               }`}>
                 <GlassCard className="p-4 md:p-8">
                   <h3 className="text-lg md:text-2xl font-bold text-green-400 mb-4 md:mb-8 flex items-center space-x-2 md:space-x-3">
@@ -437,20 +475,20 @@ function App() {
         <div 
           ref={el => sectionRefs.current[6] = el}
           data-section="6"
-          className={`min-h-screen flex items-center justify-center p-3 md:p-8 overflow-y-auto transition-all duration-1000 delay-700 ${
-            visibleSections.has(6) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          className={`min-h-screen flex items-center justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-600 ${
+            visibleSections.has(6) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <div className="max-w-5xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
-            <div className={`transition-all duration-800 delay-900 ${
-              visibleSections.has(6) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            <div className={`transition-all duration-600 ease-out delay-700 ${
+              visibleSections.has(6) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}>
               <SectionHeader icon={<Mail size={32} className="md:w-12 md:h-12" />} title="Let's Connect" subtitle="Ready to collaborate" />
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 px-2 md:px-4">
-              <div className={`transition-all duration-800 delay-1100 ${
-                visibleSections.has(6) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+              <div className={`transition-all duration-600 ease-out delay-800 ${
+                visibleSections.has(6) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
               }`}>
                 <GlassCard className="p-6 md:p-10">
                   <h3 className="text-xl md:text-3xl font-bold text-cyan-400 mb-4 md:mb-6">Get In Touch</h3>
@@ -467,8 +505,8 @@ function App() {
                 </GlassCard>
               </div>
               
-              <div className={`space-y-3 md:space-y-6 transition-all duration-800 delay-1300 ${
-                visibleSections.has(6) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+              <div className={`space-y-3 md:space-y-6 transition-all duration-600 ease-out delay-900 ${
+                visibleSections.has(6) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
               }`}>
                 <GlassCard className="p-4 md:p-8">
                   <h3 className="text-lg md:text-2xl font-bold text-purple-400 mb-3 md:mb-6">Languages</h3>
