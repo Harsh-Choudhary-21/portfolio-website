@@ -11,7 +11,7 @@ interface NavigationProps {
 
 export function NavigationArrows({ currentSection, sections, onPrevious, onNext }: Pick<NavigationProps, 'currentSection' | 'sections' | 'onPrevious' | 'onNext'>) {
   return (
-    <div className="fixed left-4 md:left-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-3 md:space-y-4">
+    <div className="fixed left-4 md:left-6 top-1/2 md:top-1/2 bottom-20 md:bottom-auto transform -translate-y-1/2 md:-translate-y-1/2 z-40 flex flex-row md:flex-col space-x-3 md:space-x-0 space-y-0 md:space-y-4 justify-center md:justify-start">
       <button
         onClick={onPrevious}
         disabled={currentSection === 0}
@@ -42,7 +42,7 @@ export function NavigationArrows({ currentSection, sections, onPrevious, onNext 
 
 export function NavigationDots({ currentSection, sections, onNavigate }: Pick<NavigationProps, 'currentSection' | 'sections' | 'onNavigate'>) {
   return (
-    <div className="fixed bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+    <div className="fixed bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 z-50 mb-16 md:mb-0">
       <div className="flex items-center space-x-3 md:space-x-4 bg-black/40 backdrop-blur-xl rounded-full px-6 md:px-8 py-3 md:py-4 border border-white/30 shadow-2xl">
         {sections.map((section, index) => (
           <button

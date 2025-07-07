@@ -58,26 +58,34 @@
   background: rgba(0, 0, 0, 0.1);
 }
 
-/* Mobile Scrollbars - Smaller and more subtle */
+/* Mobile Scrollbars - Smaller, centered, and more subtle */
 @media (max-width: 768px) {
   ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
   }
 
   ::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
+    border-radius: 1.5px;
+    margin: 0 auto;
   }
 
   ::-webkit-scrollbar-thumb {
     background: rgba(6, 182, 212, 0.4);
-    border-radius: 2px;
+    border-radius: 1.5px;
     border: none;
   }
 
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(6, 182, 212, 0.6);
+  }
+
+  /* Center the scrollbar on mobile */
+  .overflow-y-auto::-webkit-scrollbar {
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
   }
 }
 
