@@ -1,5 +1,5 @@
 import React from 'react'
-import { Mail, MapPin, Github, Linkedin, Code2, Trophy } from 'lucide-react'
+import { Mail, MapPin, Github, Linkedin, Code2, Trophy, Coffee } from 'lucide-react'
 import { ContactInfo, SocialLink } from '../components/ContactComponents'
 import { DownloadCVButton, ContactMeButton } from '../components/UI'
 
@@ -39,6 +39,7 @@ export function HeroSection() {
           <SocialLink href="https://www.linkedin.com/in/harsh-choudhary-b87837311/" icon={<Linkedin size={20} className="md:w-7 md:h-7" />} label="LinkedIn" />
           <SocialLink href="https://leetcode.com/u/g3m0n_21/" icon={<Code2 size={20} className="md:w-7 md:h-7" />} label="LeetCode" />
           <SocialLink href="https://www.hackerrank.com/profile/harshchoudhary26" icon={<Trophy size={20} className="md:w-7 md:h-7" />} label="HackerRank" />
+          <SocialLink href="https://coff.ee/harsh.choudhary" icon={<Coffee size={20} className="md:w-7 md:h-7" />} label="Buy me a coffee" />
         </div>
         
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-8 pt-4 md:pt-8">

@@ -8,7 +8,7 @@ import { FlipSkillCategory } from './components/SkillsComponents'
 import { TimelineItem } from './components/ExperienceComponents'
 import { ProjectCard, CertificationCard, AchievementCard } from './components/ProjectsComponents'
 import { ContactDetail, LanguageItem, SocialButton } from './components/ContactComponents'
-import { Github, Linkedin, Code2 as CodeIcon, Trophy, MapPin, Phone } from 'lucide-react'
+import { Github, Linkedin, Code2 as CodeIcon, Trophy, MapPin, Phone, Coffee } from 'lucide-react'
 
 // Declare Vanta for TypeScript
 declare global {
@@ -521,11 +521,14 @@ function App() {
                 
                 <GlassCard className="p-4 md:p-8">
                   <h3 className="text-lg md:text-2xl font-bold text-green-400 mb-3 md:mb-6">Connect With Me</h3>
-                  <div className="grid grid-cols-2 gap-2 md:gap-4">
+                  <div className="grid grid-cols-2 gap-2 md:gap-3">
                     <SocialButton href="https://github.com/Harsh-Choudhary-21" icon={<Github size={18} className="md:w-6 md:h-6" />} label="GitHub" />
                     <SocialButton href="https://www.linkedin.com/in/harsh-choudhary-b87837311/" icon={<Linkedin size={18} className="md:w-6 md:h-6" />} label="LinkedIn" />
                     <SocialButton href="https://leetcode.com/u/g3m0n_21/" icon={<CodeIcon size={18} className="md:w-6 md:h-6" />} label="LeetCode" />
                     <SocialButton href="https://www.hackerrank.com/profile/harshchoudhary26" icon={<Trophy size={18} className="md:w-6 md:h-6" />} label="HackerRank" />
+                    <div className="col-span-2">
+                      <SocialButton href="https://coff.ee/harsh.choudhary" icon={<Coffee size={18} className="md:w-6 md:h-6" />} label="Buy me a coffee ☕" />
+                    </div>
                   </div>
                 </GlassCard>
               </div>
