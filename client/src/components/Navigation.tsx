@@ -82,7 +82,7 @@ export function SectionIndicator({ currentSection, sections }: Pick<NavigationPr
 
 export function ScrollProgress({ progress }: { progress: number }) {
   return (
-    <div className="fixed right-4 md:right-6 top-4 md:top-6 z-50">
+    <div className="fixed right-4 md:right-6 top-4 md:top-6 z-50 hidden md:block">
       <div className="bg-black/60 backdrop-blur-xl rounded-full p-2 md:p-3 border border-white/30 shadow-2xl">
         <div className="relative w-12 h-12 md:w-16 md:h-16">
           {/* Background circle */}

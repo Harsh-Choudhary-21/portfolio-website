@@ -154,7 +154,10 @@ function App() {
 
       {/* Enhanced overlay with gradient effects */}
       <div className="fixed inset-0 z-5 bg-gradient-to-br from-black/50 via-black/30 to-black/60 pointer-events-none" />
-      <div className="fixed inset-0 z-6 bg-gradient-to-t from-black/70 via-transparent to-black/50 pointer-events-none" />
+      <div className="fixed inset-0 z-6 bg-gradient-to-t from-black/70 via-transparent to-black/50 md:from-black/70 md:via-transparent md:to-black/50 from-black/85 via-black/60 to-black/75 pointer-events-none" />
+      
+      {/* Additional mobile dimming overlay */}
+      <div className="fixed inset-0 z-7 bg-black/40 md:bg-transparent pointer-events-none" />
 
       {/* Enhanced cursor glow effect */}
       <div 
@@ -200,7 +203,7 @@ function App() {
       {/* Scrollable Container */}
       <div 
         ref={containerRef}
-        className="h-full w-full overflow-y-auto overflow-x-hidden relative z-20 scroll-smooth"
+        className="h-full w-full overflow-y-auto overflow-x-hidden relative z-20 scroll-smooth scrollbar-hide"
         style={{ scrollBehavior: 'smooth' }}
       >
         {/* Hero Section */}

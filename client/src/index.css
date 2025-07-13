@@ -29,8 +29,16 @@
 
 /* Enhanced Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 0px;
   height: 6px;
+}
+
+/* Desktop scrollbars */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
 }
 
 ::-webkit-scrollbar-track {
@@ -55,7 +63,7 @@
 /* Mobile Scrollbars - Enhanced */
 @media (max-width: 768px) {
   ::-webkit-scrollbar {
-    width: 3px;
+    width: 0px;
     height: 3px;
   }
 
@@ -77,14 +85,43 @@
 
 /* Firefox scrollbars */
 * {
-  scrollbar-width: thin;
+  scrollbar-width: none;
   scrollbar-color: rgba(6, 182, 212, 0.9) rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(6, 182, 212, 0.9) rgba(0, 0, 0, 0.1);
+  }
 }
 
 @media (max-width: 768px) {
   * {
-    scrollbar-width: thin;
+    scrollbar-width: none;
     scrollbar-color: rgba(6, 182, 212, 0.8) rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Utility class for hiding scrollbars */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .scrollbar-hide {
+    -ms-overflow-style: auto;
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: block;
+    width: 6px;
   }
 }
 
@@ -125,12 +162,26 @@
 /* Enhanced Keyframes */
 @keyframes float { 
   0%, 100% { transform: translateY(0) rotate(0deg); } 
-  50% { transform: translateY(-15px) rotate(180deg); } 
+  50% { transform: translateY(-8px) rotate(90deg); } 
+}
+
+@media (min-width: 768px) {
+  @keyframes float { 
+    0%, 100% { transform: translateY(0) rotate(0deg); } 
+    50% { transform: translateY(-15px) rotate(180deg); } 
+  }
 }
 
 @keyframes glow { 
-  0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); } 
-  50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.8), 0 0 60px rgba(139, 92, 246, 0.6); } 
+  0%, 100% { box-shadow: 0 0 10px rgba(6, 182, 212, 0.3); } 
+  50% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.6), 0 0 30px rgba(139, 92, 246, 0.4); } 
+}
+
+@media (min-width: 768px) {
+  @keyframes glow { 
+    0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); } 
+    50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.8), 0 0 60px rgba(139, 92, 246, 0.6); } 
+  }
 }
 
 @keyframes pulse-glow { 
@@ -151,19 +202,40 @@
 @keyframes particle-float { 
   0%, 100% { 
     transform: translateY(0) rotate(0deg) scale(1); 
-    opacity: 0.2; 
+    opacity: 0.1; 
   } 
   25% { 
-    transform: translateY(-20px) rotate(90deg) scale(1.2); 
-    opacity: 0.6; 
+    transform: translateY(-10px) rotate(45deg) scale(1.1); 
+    opacity: 0.3; 
   }
   50% { 
-    transform: translateY(-40px) rotate(180deg) scale(0.8); 
-    opacity: 0.8; 
+    transform: translateY(-20px) rotate(90deg) scale(0.9); 
+    opacity: 0.4; 
   }
   75% { 
-    transform: translateY(-20px) rotate(270deg) scale(1.1); 
-    opacity: 0.4; 
+    transform: translateY(-10px) rotate(135deg) scale(1.05); 
+    opacity: 0.2; 
+  }
+}
+
+@media (min-width: 768px) {
+  @keyframes particle-float { 
+    0%, 100% { 
+      transform: translateY(0) rotate(0deg) scale(1); 
+      opacity: 0.2; 
+    } 
+    25% { 
+      transform: translateY(-20px) rotate(90deg) scale(1.2); 
+      opacity: 0.6; 
+    }
+    50% { 
+      transform: translateY(-40px) rotate(180deg) scale(0.8); 
+      opacity: 0.8; 
+    }
+    75% { 
+      transform: translateY(-20px) rotate(270deg) scale(1.1); 
+      opacity: 0.4; 
+    }
   }
 }
 
@@ -194,16 +266,32 @@
 
 /* Enhanced Custom Classes */
 .glass-effect {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(25px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 768px) {
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .glass-effect:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(6, 182, 212, 0.4);
-  box-shadow: 0 12px 40px rgba(6, 182, 212, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.2);
+}
+
+@media (min-width: 768px) {
+  .glass-effect:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(6, 182, 212, 0.4);
+    box-shadow: 0 12px 40px rgba(6, 182, 212, 0.3);
+  }
 }
 
 .hover-lift {
@@ -211,8 +299,15 @@
 }
 
 .hover-lift:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 768px) {
+  .hover-lift:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .gradient-text {
@@ -274,11 +369,11 @@
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
   .glass-effect:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
   }
-  .hover\:scale-105:hover { transform: scale(1.02); }
-  .hover\:scale-110:hover { transform: scale(1.05); }
-  .hover\:scale-125:hover { transform: scale(1.08); }
+  .hover\:scale-105:hover { transform: scale(1.01); }
+  .hover\:scale-110:hover { transform: scale(1.02); }
+  .hover\:scale-125:hover { transform: scale(1.03); }
   button, a { min-height: 44px; min-width: 44px; }
   
   .flip-card:active .flip-card-inner {

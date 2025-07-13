@@ -3,7 +3,7 @@ import { Download, Mail } from 'lucide-react'
 
 export function GlassCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`bg-white/10 backdrop-blur-xl rounded-2xl md:rounded-3xl border border-white/20 shadow-2xl hover:bg-white/15 transition-all duration-500 hover:scale-[1.02] hover:shadow-cyan-500/20 ${className}`}>
+    <div className={`bg-white/8 md:bg-white/10 backdrop-blur-xl rounded-2xl md:rounded-3xl border border-white/15 md:border-white/20 shadow-xl md:shadow-2xl hover:bg-white/10 md:hover:bg-white/15 transition-all duration-500 hover:scale-[1.01] md:hover:scale-[1.02] hover:shadow-cyan-500/10 md:hover:shadow-cyan-500/20 ${className}`}>
       {children}
     </div>
   )
