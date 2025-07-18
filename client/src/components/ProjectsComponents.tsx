@@ -89,3 +89,46 @@ export function AchievementCard({ title, description, year, icon }: {
     </div>
   )
 }
+
+export function CertificateCard({ title, platform, date, link, icon, color }: { 
+  title: string; 
+  platform: string;
+  date: string | null;
+  link: string;
+  icon: string;
+  color: string;
+}) {
+  return (
+    <a href={link} target="_blank" rel="noopener noreferrer" className="group">
+      <GlassCard className="overflow-hidden cursor-pointer h-full hover:scale-105 transition-all duration-300">
+        <div className={`relative h-20 md:h-24 bg-gradient-to-r ${color} flex items-center justify-center`}>
+          <div className="text-3xl md:text-4xl xl:text-5xl">{icon}</div>
+          <div className="absolute top-2 right-2">
+            <ExternalLink size={16} className="md:w-5 md:h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </div>
+        </div>
+        <div className="p-4 md:p-6 space-y-3 md:space-y-4">
+          <h3 className="text-sm md:text-lg xl:text-xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300 break-words leading-tight">
+            {title}
+          </h3>
+          <div className="flex items-center space-x-2 text-gray-400">
+            <Award size={14} className="md:w-4 md:h-4 flex-shrink-0" />
+            <span className="text-xs md:text-sm font-medium break-words">{platform}</span>
+          </div>
+          {date && (
+            <div className="flex items-center space-x-2 text-gray-400">
+              <Calendar size={14} className="md:w-4 md:h-4 flex-shrink-0" />
+              <span className="text-xs md:text-sm break-words">{date}</span>
+            </div>
+          )}
+          <div className="pt-2">
+            <div className="inline-flex items-center space-x-2 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300">
+              <span className="text-xs md:text-sm font-semibold">View Certificate</span>
+              <ExternalLink size={12} className="md:w-4 md:h-4" />
+            </div>
+          </div>
+        </div>
+      </GlassCard>
+    </a>
+  )
+}
