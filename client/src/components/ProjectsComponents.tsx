@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExternalLink, Trophy, Sparkles } from 'lucide-react'
+import { ExternalLink, Trophy, Sparkles, Award, Calendar } from 'lucide-react'
 import { GlassCard } from './UI'
 
 export function ProjectCard({ title, tech, description, image, gradient, link }: { 

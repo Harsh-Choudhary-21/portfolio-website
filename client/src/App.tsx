@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react'
 import { NavigationArrows, NavigationDots, SectionIndicator, ScrollProgress } from './components/Navigation'
 import { HeroSection } from './sections/HeroSection'
 import { AboutSection } from './sections/AboutSection'
-import { Code2, GraduationCap, Briefcase, Award, Mail } from 'lucide-react'
+import { Code2, GraduationCap, Briefcase, Award, Mail, FileText } from 'lucide-react'
 import { SectionHeader, GlassCard } from './components/UI'
 import { FlipSkillCategory } from './components/SkillsComponents'
 import { TimelineItem } from './components/ExperienceComponents'
-import { ProjectCard, CertificationCard, AchievementCard } from './components/ProjectsComponents'
+import { ProjectCard, CertificationCard, AchievementCard, CertificateCard } from './components/ProjectsComponents'
 import { ContactDetail, LanguageItem, SocialButton } from './components/ContactComponents'
 import { Github, Linkedin, Code2 as CodeIcon, Trophy, MapPin, Phone, Coffee } from 'lucide-react'
 
@@ -36,6 +36,7 @@ function App() {
     'skills',
     'experience',
     'projects',
+    'certificates',
     'achievements',
     'contact'
   ]
@@ -442,7 +443,7 @@ function App() {
           </div>
         </div>
 
-        {/* Achievements Section */}
+        {/* Certificates Section */}
         <div 
           ref={el => sectionRefs.current[5] = el}
           data-section="5"
@@ -450,21 +451,93 @@ function App() {
             visibleSections.has(5) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <div className="max-w-6xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
+          <div className="max-w-7xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
             <div className={`transition-all duration-600 ease-out delay-600 ${
               visibleSections.has(5) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            }`}>
+              <SectionHeader icon={<FileText size={32} className="md:w-12 md:h-12" />} title="Certificates" subtitle="Professional certifications and achievements" />
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 px-2 md:px-4">
+              {[
+                {
+                  title: "Basics of Data Structures and Algorithms",
+                  platform: "Simplilearn",
+                  date: "15th January 2025",
+                  link: "https://simpli-web.app.link/e/rQrlIgWN6Ub",
+                  icon: "🧮",
+                  color: "from-blue-500 to-cyan-600"
+                },
+                {
+                  title: "Problem Solving (Basic)",
+                  platform: "HackerRank",
+                  date: null,
+                  link: "https://www.hackerrank.com/certificates/ec7dac2c4545",
+                  icon: "🧩",
+                  color: "from-green-500 to-emerald-600"
+                },
+                {
+                  title: "Software Engineering Intern",
+                  platform: "HackerRank",
+                  date: null,
+                  link: "https://www.hackerrank.com/certificates/351e6d2b3111",
+                  icon: "💼",
+                  color: "from-purple-500 to-violet-600"
+                },
+                {
+                  title: "Python (Basic)",
+                  platform: "HackerRank",
+                  date: null,
+                  link: "https://www.hackerrank.com/certificates/831bd087d685",
+                  icon: "🐍",
+                  color: "from-yellow-500 to-orange-600"
+                },
+                {
+                  title: "SQL (Basic)",
+                  platform: "HackerRank",
+                  date: null,
+                  link: "https://www.hackerrank.com/certificates/419026435d88",
+                  icon: "🗄️",
+                  color: "from-pink-500 to-rose-600"
+                }
+              ].map((certificate, index) => (
+                <div 
+                  key={certificate.title}
+                  className={`transition-all duration-600 ease-out ${
+                    visibleSections.has(5) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                  }`}
+                  style={{ transitionDelay: `${700 + index * 100}ms` }}
+                >
+                  <CertificateCard {...certificate} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Achievements Section */}
+        <div 
+          ref={el => sectionRefs.current[6] = el}
+          data-section="6"
+          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-500 ${
+            visibleSections.has(6) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <div className="max-w-6xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
+            <div className={`transition-all duration-600 ease-out delay-600 ${
+              visibleSections.has(6) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}>
               <SectionHeader icon={<Award size={32} className="md:w-12 md:h-12" />} title="Achievements & Certifications" subtitle="Recognition of my work" />
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 px-2 md:px-4">
               <div className={`transition-all duration-600 ease-out delay-700 ${
-                visibleSections.has(5) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
+                visibleSections.has(6) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
               }`}>
                 <GlassCard className="p-4 md:p-8">
                   <h3 className="text-lg md:text-2xl font-bold text-yellow-400 mb-4 md:mb-8 flex items-center space-x-2 md:space-x-3">
                     <Trophy size={20} className="md:w-7 md:h-7" />
-                    <span>Certifications</span>
+                    <span>Legacy Certifications</span>
                   </h3>
                   <div className="space-y-3 md:space-y-6">
                     <CertificationCard 
@@ -490,7 +563,7 @@ function App() {
               </div>
               
               <div className={`transition-all duration-600 ease-out delay-800 ${
-                visibleSections.has(5) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
+                visibleSections.has(6) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
               }`}>
                 <GlassCard className="p-4 md:p-8">
                   <h3 className="text-lg md:text-2xl font-bold text-green-400 mb-4 md:mb-8 flex items-center space-x-2 md:space-x-3">
@@ -525,22 +598,22 @@ function App() {
 
         {/* Contact Section */}
         <div 
-          ref={el => sectionRefs.current[6] = el}
-          data-section="6"
+          ref={el => sectionRefs.current[7] = el}
+          data-section="7"
           className={`min-h-screen flex items-center justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-600 ${
-            visibleSections.has(6) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            visibleSections.has(7) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <div className="max-w-5xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
             <div className={`transition-all duration-600 ease-out delay-700 ${
-              visibleSections.has(6) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              visibleSections.has(7) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}>
               <SectionHeader icon={<Mail size={32} className="md:w-12 md:h-12" />} title="Let's Connect" subtitle="Ready to collaborate" />
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 px-2 md:px-4">
               <div className={`transition-all duration-600 ease-out delay-800 ${
-                visibleSections.has(6) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
+                visibleSections.has(7) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
               }`}>
                 <GlassCard className="p-6 md:p-10">
                   <h3 className="text-xl md:text-3xl font-bold text-cyan-400 mb-4 md:mb-6">Get In Touch</h3>
@@ -558,7 +631,7 @@ function App() {
               </div>
               
               <div className={`space-y-3 md:space-y-6 transition-all duration-600 ease-out delay-900 ${
-                visibleSections.has(6) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
+                visibleSections.has(7) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
               }`}>
                 <GlassCard className="p-4 md:p-8">
                   <h3 className="text-lg md:text-2xl font-bold text-purple-400 mb-3 md:mb-6">Languages</h3>
