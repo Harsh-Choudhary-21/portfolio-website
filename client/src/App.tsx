@@ -282,7 +282,7 @@ function App() {
         <div 
           ref={el => sectionRefs.current[2] = el}
           data-section="2"
-          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-200 ${
+          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-200 overflow-hidden ${
             visibleSections.has(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
@@ -297,7 +297,7 @@ function App() {
         <div 
           ref={el => sectionRefs.current[3] = el}
           data-section="3"
-          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-300 ${
+          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-300 overflow-hidden ${
             visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
@@ -312,7 +312,7 @@ function App() {
         <div 
           ref={el => sectionRefs.current[4] = el}
           data-section="4"
-          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-400 ${
+          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-400 overflow-hidden ${
             visibleSections.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
@@ -327,7 +327,7 @@ function App() {
         <div 
           ref={el => sectionRefs.current[5] = el}
           data-section="5"
-          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-500 ${
+          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-500 overflow-hidden ${
             visibleSections.has(5) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
@@ -342,7 +342,7 @@ function App() {
         <div 
           ref={el => sectionRefs.current[6] = el}
           data-section="6"
-          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-500 ${
+          className={`min-h-screen flex items-start justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-500 overflow-hidden ${
             visibleSections.has(6) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
@@ -357,7 +357,7 @@ function App() {
         <div 
           ref={el => sectionRefs.current[7] = el}
           data-section="7"
-          className={`min-h-screen flex items-center justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-600 ${
+          className={`min-h-screen flex items-center justify-center p-3 md:p-8 transition-all duration-700 ease-out delay-600 overflow-hidden ${
             visibleSections.has(7) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >

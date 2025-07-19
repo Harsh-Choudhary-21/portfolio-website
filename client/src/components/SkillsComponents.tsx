@@ -19,7 +19,7 @@ export function FlipSkillCategory({ title, skills, color }: {
   }
 
   return (
-    <GlassCard className="p-3 md:p-6 group">
+    <GlassCard className="p-3 md:p-6 group h-full">
       <h3 className={`text-base md:text-xl xl:text-2xl font-bold mb-3 md:mb-6 bg-gradient-to-r ${colorClasses[color as keyof typeof colorClasses]} bg-clip-text text-transparent`}>
         {title}
       </h3>
@@ -42,17 +42,17 @@ function FlipSkillCard({ skill, color }: { skill: Skill; color: string }) {
 
   return (
     <div 
-      className="flip-card h-16 md:h-20 cursor-pointer"
+      className="flip-card h-16 md:h-20 cursor-pointer w-full overflow-hidden"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <div className={`flip-card-inner ${isFlipped ? 'flipped' : ''}`}>
-        <div className="flip-card-front bg-white/10 rounded-xl border border-white/20 p-3 md:p-4">
+        <div className="flip-card-front bg-white/10 rounded-xl border border-white/20 p-3 md:p-4 w-full h-full overflow-hidden">
           <div className="flex justify-between items-center mb-2">
             <div className="flex items-center space-x-2">
               <span className="text-lg md:text-xl">{skill.icon}</span>
-              <span className="text-white font-semibold text-sm md:text-base">{skill.name}</span>
+              <span className="text-white font-semibold text-sm md:text-base truncate">{skill.name}</span>
             </div>
             <span className="text-gray-400 font-medium text-xs md:text-sm">{skill.level}%</span>
           </div>
@@ -64,12 +64,12 @@ function FlipSkillCard({ skill, color }: { skill: Skill; color: string }) {
           </div>
         </div>
         
-        <div className="flip-card-back bg-white/15 rounded-xl border border-white/30 p-3 md:p-4">
+        <div className="flip-card-back bg-white/15 rounded-xl border border-white/30 p-3 md:p-4 w-full h-full overflow-hidden">
           <div className="flex items-start space-x-2 h-full">
             <span className="text-lg md:text-xl flex-shrink-0">{skill.icon}</span>
             <div className="flex-1">
-              <h4 className="text-white font-semibold text-sm md:text-base mb-1">{skill.name}</h4>
-              <p className="text-gray-300 text-xs md:text-sm leading-relaxed">{skill.description}</p>
+              <h4 className="text-white font-semibold text-sm md:text-base mb-1 truncate">{skill.name}</h4>
+              <p className="text-gray-300 text-xs md:text-sm leading-relaxed overflow-hidden">{skill.description}</p>
             </div>
           </div>
         </div>

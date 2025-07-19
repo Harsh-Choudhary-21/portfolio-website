@@ -129,6 +129,7 @@
 .flip-card {
   perspective: 1000px;
   width: 100%;
+  overflow: hidden;
 }
 
 .flip-card-inner {
@@ -138,6 +139,7 @@
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
+  overflow: hidden;
 }
 
 .flip-card-inner.flipped {
@@ -153,6 +155,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .flip-card-back {

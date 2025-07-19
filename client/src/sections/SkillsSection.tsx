@@ -5,7 +5,7 @@ import { FlipSkillCategory } from '../components/SkillsComponents'
 
 export function SkillsSection() {
   return (
-    <div className="max-w-7xl w-full space-y-4 md:space-y-8 py-4 md:py-8">
+    <div className="max-w-7xl w-full space-y-4 md:space-y-8 py-4 md:py-8 overflow-hidden">
       <SectionHeader icon={<Code2 size={32} className="md:w-12 md:h-12" />} title="Skills & Expertise" subtitle="Technologies I work with" />
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 px-2 md:px-4">

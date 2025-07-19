@@ -11,14 +11,14 @@ export function GlassCard({ children, className = "" }: { children: React.ReactN
 
 export function SectionHeader({ icon, title, subtitle }: { icon: React.ReactNode; title: string; subtitle: string }) {
   return (
-    <div className="text-center space-y-2 md:space-y-4">
+    <div className="text-center space-y-2 md:space-y-4 overflow-hidden">
       <div className="flex justify-center text-cyan-400 mb-2 md:mb-4">
         {icon}
       </div>
-      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent break-words">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent break-words px-2">
         {title}
       </h2>
-      <p className="text-sm md:text-base lg:text-lg xl:text-xl text-gray-400 font-light break-words">{subtitle}</p>
+      <p className="text-sm md:text-base lg:text-lg xl:text-xl text-gray-400 font-light break-words px-2">{subtitle}</p>
     </div>
   )
 }
