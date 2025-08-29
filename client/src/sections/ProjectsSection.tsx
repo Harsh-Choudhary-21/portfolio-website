@@ -6,6 +6,22 @@ import { ProjectCard } from '../components/ProjectsComponents'
 export function ProjectsSection() {
   const projects = [
     {
+      title: "🌾 Crop Yield Predictor",
+      tech: ['TensorFlow', 'Keras', 'Scikit-learn', 'Pandas', 'Matplotlib', 'KaggleHub'],
+      description: "Advanced crop yield prediction using TensorFlow/Keras with neural networks, preprocessing, and professional reporting. Designed for agricultural planning, resource allocation, and yield optimization.",
+      image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600&h=400&fit=crop",
+      gradient: "from-green-500 to-emerald-600",
+      link: "https://github.com/Harsh-Choudhary-21/Crop-Yield-Predictor",
+      features: [
+        "Multi-layer neural networks with dropout",
+        "Automated model optimization", 
+        "Multiple accuracy metrics (R², MAE, RMSE)",
+        "Reporting dashboard and visualization"
+      ],
+      highlight: "Business-Ready",
+      category: "Machine Learning"
+    },
+    {
       title: "AI Face Recognition System",
       tech: ['Python', 'OpenCV', 'Machine Learning', 'TensorFlow'],
       description: "Advanced attendance tracking system using facial recognition technology with real-time processing capabilities and secure data management.",
